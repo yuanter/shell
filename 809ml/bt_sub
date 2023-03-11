@@ -1,0 +1,98 @@
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+plain='\033[0m'
+
+# check os
+if [[ -f /etc/redhat-release ]]; then
+    release="centos"
+elif cat /etc/issue | grep -Eqi "debian"; then
+    release="debian"
+elif cat /etc/issue | grep -Eqi "ubuntu"; then
+    release="ubuntu"
+elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
+    release="centos"
+elif cat /proc/version | grep -Eqi "debian"; then
+    release="debian"
+elif cat /proc/version | grep -Eqi "ubuntu"; then
+    release="ubuntu"
+elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
+    release="centos"
+else
+    echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
+fi
+
+
+#centos nginx常见根目录  /usr/share/nginx/html
+#ubuntu或者Debian nginx常见根目录  /var/www/html
+#宝塔 nginx常见根目录  /www/server/nginx/html
+nginxPath=""
+if [[ x"${release}" == x"centos" ]]; then
+   nginxPath="/usr/share/nginx/html"
+elif [[ x"${release}" == x"ubuntu" ]]; then
+   nginxPath="/var/www/html"
+elif [[ x"${release}" == x"debian" ]]; then
+   nginxPath="/var/www/html"
+fi
+
+#判断宝塔路径
+if [ -d "/www/server/nginx/html/" ];then
+  nginxPath="/www/server/nginx/html"
+fi
+
+
+if [ $(command -v x-ui | grep -c "x-ui") -lt 1 ]
+then echo "${red}错误：${plain} 未安装x-ui，请先安装x-ui，并替换好809专用xray内核，再新建ws443节点，接着重新运行此脚本"
+else if [ $(command -v wget | grep -c "wget") -lt 1 -o $(command -v nginx | grep -c "nginx") -lt 1 ]
+then yum update || apt update
+yes | yum upgrade || yes | apt upgrade
+yum update || apt update
+sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+yum install wget nginx -y || apt install wget nginx -y
+systemctl daemon-reload
+systemctl start nginx.service
+systemctl enable nginx.service
+fi
+
+#echo -e "${yellow}当前已安装的Nginx路径为：${nginxPath}${plain}"
+
+read -p "请输入v2的ip地址（默认使用本机ip）: " spip
+if  [ ! -n "${spip}" ] ;then
+	spip=$(curl -s ifconfig.me)
+    echo -e "${yellow}未输入v2的ip地址，默认使用本机ip：${spip}${plain}"
+else
+    echo -e "${yellow}当前IP地址为：${spip}${plain}"
+fi
+
+read -p "请输入v2端口(默认443): " spport
+if  [ ! -n "${spport}" ] ;then
+	spport="443"
+    echo -e "${yellow}未输入端口，默认使用端口：443${plain}"
+else
+    echo -e "${yellow}当前端口为：${spport}${plain}"
+fi
+
+s=$(echo $(($(cat /usr/local/x-ui/bin/config.json | grep -o "port.*" | grep -n "443" | cut -c 1)-1)))
+id=$(cat /usr/local/x-ui/bin/config.json | grep -o '"id".*' | sed -n "$s"p | cut -d '"' -f4)
+fakeid=$(echo $RANDOM | md5sum | cut -c 1-22)
+md5="3d99ff138e1f41e931e58617e7d128e2"
+spkey=$(echo -n "if5ax/?fakeid=$fakeid&spid=31117&pid=31117&spip=$spip&spport=$spport$md5" | md5sum | cut -d " " -f1)
+url=$(curl -s -X GET -H "Host:dir.wo186.tv:809" -H "User-Agent:Mozilla/5.0 (Linux; Android 11; M2012K11AC) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.104 Mobile Safari/537.36" "http://dir.wo186.tv:809/if5ax/?fakeid=$fakeid&spid=31117&pid=31117&spip=$spip&spport=$spport&spkey=$spkey" | grep -o "url.*" | cut -d '"' -f3 | sed 's/\\//g')
+host=$(echo $url | cut -d "/" -f3 | cut -d ":" -f1)
+path=$(echo $url | grep -o "/if5ax.*")
+enpath=$(echo $path | sed 's/=/\\u003d/g' | sed 's/&/\\u0026/g')
+config=$(echo -n "{\"add\":\"$host\",\"aid\":\"0\",\"host\":\"$host\",\"id\":\"$id\",\"net\":\"ws\",\"path\":\"$enpath\",\"port\":\"809\",\"ps\":\"联通809免流\",\"scy\":\"auto\",\"sni\":\"\",\"tls\":\"\",\"type\":\"\",\"v\":\"2\"}" | base64 -w 0)
+
+echo -n "vmess://$config"  | base64 -w 0 > ${nginxPath}/809
+[ $(ps -A | grep "nginx" | wc -l) -lt 1 ] && nginx
+[ ! -d ~/lt809ml ] && mkdir ~/lt809ml
+[ ! -a ~/lt809ml/sub ] && wget -O ~/lt809ml/sub https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/809ml/bt_sub
+chmod +x ~/lt809ml/sub
+if [ $(crontab -l | grep "lt809ml/sub" | wc -l) -lt 1 ]
+then crontab -l > crontablist
+echo "0 0-23/3 * * * /root/lt809ml/sub" >> crontablist
+crontab crontablist
+rm -rf crontablist
+fi
+fi
+echo -e "脚本安装成功，请复制链接：${yellow}http://${spip}/809${plain} 输入进软件的订阅地址更新即可"

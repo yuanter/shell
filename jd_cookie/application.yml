@@ -1,0 +1,111 @@
+server:
+  port: 1170
+
+spring:
+  thymeleaf:
+    content-type: text/html
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+  # =================== 上面部分不要动 ===================
+
+  # =================== 下方部分需要填写，按照注释部分填写配置，以下有注释部分需要填写，注意填写部分保留空格 ===================
+  redis: #这里不要动
+    #redis连接地址，默认redis，请填写（需要注意本地redis和本地容器redis的host区别，本地默认127.0.0.1，docker默认redis,如果有公网直接填写公网）
+    host: redis
+    #redis的密码（默认为空），如果运行redis时设置了密码，请对应填写
+    password: 
+    #redis端口地址，默认6379
+    port: 6379
+
+# ======================================= WxPusher 通知设置区域 ===========================================
+# 此处填你申请的 appToken. 官方文档：https://wxpusher.zjiecode.com/docs
+# 创建推送应用时，需要在平台https://wxpusher.zjiecode.com/admin/main/app/appInfo事件回调地址中填写，不填写则无法获取推送信息，地址：http://ip:1170/api/wxpusher，如：http://101.32.xxx.xxx:1170/api/wxpusher
+# 这里的通知只用于用户登陆 删除 是给你的通知（暂未实现，请填写青龙部分appToken实现一对一推送）
+push: #这里不要动
+  # appToken 可在管理台查看: https://wxpusher.zjiecode.com/admin/main/app/appToken
+  appToken:
+  # main_uid 填你自己uid
+  main_uid:
+
+# ================= 推送信息定时表达式 =================
+# 登陆预警 0 0 12 * * ?  每天中午十二点 https://www.bejson.com/othertools/cron/ 表达式在线生成网址
+ExpirationCron: 0 0 12 * * ?
+# 个人资产 0 0 10,20 * * ?  早十点晚上八点
+BeanCron: 0 0 10,20 * * ?
+
+# ================= 青龙变量，请根据自己青龙地址填写，不填写，则当前项目只用于提取CK，不对接青龙 =================
+ql: #这里不要动
+  # 是否启用手动提交CK或Wskey功能，默认true启用，不启用则修改为false
+  isShowShouDongCK: true
+  # 是否开启前端手动wskey转CK功能，默认false不启用，启用则修改为true
+  isShowWskeyToCK: false
+  # 是否启用短信功能，默认false不启用，启用则修改为true
+  isShowDuanXin: false
+  # 是否展示自定义CK环境,默认false不启用，启用则修改为true。用于新增通用CK提交，自定义青龙环境名称（name）、值（value）、备注（remarks），如提交快手CK
+  isShowZiDingYi: false
+  # 自定义CK青龙环境名称，多个格式用英文@分割开，如JD_COOKIE@JD_WSCK@ksjsbCookie@CFD_COOKIE
+  nameList: ksjsbCookie@CFD_COOKIE
+  # 前端提示文字，当上方启用展示自定义CK环境功能时，请提示用户按照青龙环境格式填写对应的名称、值、备注,这里可作为提交教程展示
+  tip: Tip：提交CK前请先选好节点，请按照车主给出的教程格式填写通用CK类型名称、值、备注
+  # 是否多方式京东资产查询，默认false不启用，启用则修改为true
+  isQueryAssets: false
+  # 网站标题
+  title: 京东短信车
+  #公告
+  notice: <div style="text-align:left;">  0、<span style="color:#E53333;"><strong>特别提醒：</strong></span>为了保障您账号的安全，请设置支付密码并目关闭免密支付！！！</div><div style="text-align:left;">  1、<span style="color:#E53333;"><strong>东东农场：</strong></span>完成后只兑换不下单，可兑得无门槛红包(Level 4 的水果价值50元)。适用于京东、京喜和京东极速版APP；</div><div style="text-align:left;">  2、<span style="color:#E53333;"><strong>东东萌宠：</strong></span>完成后只兑换不下单，可兑得20元无门槛红包。适用于京东APP；</div><div style="text-align:left;">  3、<span style="color:#E53333;"><strong>京喜工厂：</strong></span>产品生产完成后，须在有效期内完成兑换，逾期作废；</div><div style="text-align:left;">  4、<span style="color:#E53333;"><strong>京喜购物：</strong></span>参加他人发起的团购，可立即成团，卖家发货较快。自行发起团购需拼团成功或等卖家处理后才发货；</div><div style="text-align:left;">  5、<span style="color:#E53333;"><strong>京喜红包：</strong></span>有效期为48小时，请及时使用；</div><div style="text-align:left;">  6、<span style="color:#E53333;"><strong>东东健康社区：</strong></span>常有1元好物，比如口罩、维生素等等；</div><div style="text-align:left;">  7、<span style="color:#E53333;"><strong>京东赚赚红包：</strong></span>每月1号0点抢，仅适用于京东APP；</div><div style="text-align:left;">  8、<span style="color:#E53333;"><strong>京东极速版金币：</strong></span>建议累计金额达50元或100元兑换无门槛红包，仅适用于京东极速版 APP；</div><div style="text-align:left;">  9、<span style="color:#E53333;"><strong>京东APP-我的-优惠券：</strong></span>每天自动领取若干优惠券，以备不时之需。</div><div style="text-align:left;">  &nbsp; &nbsp; &nbsp; &nbsp; 注：①所有符号均为英文半角符号，无空格；</div><div style="text-align:left;">  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ②抓包时如果没有 pin ，可用 pt_pin 的值代替。</div><iframe frameborder="0" width="100%" height="auto" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=0&v=0&d=5&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=100%&h=auto&align=center"></iframe><img src="https://s4.ax1x.com/2022/01/07/7CSFOJ.jpg" width="100%" height="auto" border="0" />
+  # 多容器请按照注释部分（要对齐符号-才是正确的格式）
+  containers: #这里不要动
+    #青龙域名或者ip(不带/,示例1：http://www.baidu.com，示例2：http://119.xx.7x.2xx:5700,示例3：https://183.45.454.6:443或者https://t.me)
+#    - host:
+#      # 青龙client_id
+#      client_id:
+#      # 青龙client_secret
+#      client_secret:
+#      # 服务器名称，默认按顺序加载，如服务器1，服务器2
+#      ql_name: 青龙节点1
+#      #提交青龙CK上限数量(默认最多40个)
+#      ck_count: 40
+#      # 提交青龙Wskey上限数量(默认最多40个)
+#      wskey_count: 40
+#      # 通用CK数量（默认40）
+#      tyCK_count: 40
+#      # 建议一个青龙一个WxPusher 应用
+#      appToken:
+#    #青龙域名或者ip(不带/,示例1：http://www.baidu.com，示例2：http://119.xx.7x.2xx:5700,示例3：https://183.45.454.6:443或者https://t.me)
+#    - host:
+#      # 青龙client_id
+#      client_id:
+#      # 青龙client_secret
+#      client_secret:
+#      # 服务器名称，默认按顺序加载，如服务器1，服务器2
+#      ql_name:
+#      # 提交青龙CK上限数量(默认最多40个)
+#      ck_count: 40
+#      # 提交青龙Wskey上限数量(默认最多40个)
+#      wskey_count: 40
+#      # 通用CK数量（默认40）
+#      tyCK_count: 40
+#      # 建议一个青龙一个WxPusher 应用
+#      appToken:
+#    #青龙域名或者ip(不带/,示例1：http://www.baidu.com，示例2：http://119.xx.7x.2xx:5700,示例3：https://183.45.454.6:443或者https://t.me)
+#    - host:
+#      # 青龙client_id
+#      client_id:
+#      # 青龙client_secret
+#      client_secret:
+#      # 服务器名称，默认按顺序加载，如服务器1，服务器2
+#      ql_name:
+#      # 提交青龙CK上限数量(默认最多40个)
+#      ck_count: 40
+#      # 提交青龙Wskey上限数量(默认最多40个)
+#      wskey_count: 40
+#      # 通用CK数量（默认40）
+#      tyCK_count: 40
+#      # 建议一个青龙一个WxPusher 应用
+#      appToken:

@@ -1,0 +1,33 @@
+demo:
+  # 是否启用保存用户账号密码定时打卡功能，默认启用，启用则修改为false，同时配置下方参数，redis，定时打卡表达式，是否随机打卡，随机打卡步数范围
+  isSave: true
+  # 定时打卡 0 0 18,20,22 * * ?  晚上六点、八点、十点各同步一次
+  corn: 0 0 18,20,22 * * ?
+  # 前端提示文字
+  tip: Tip：当启用账号保存功能时，当前账号将保存☞服务器上，并启用定时打卡功能,默认打卡时间为晚上6、8、10点三次，取最大打卡步数
+
+# =================== 这部分不要动 ===================
+spring:
+  thymeleaf:
+    content-type: text/html
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+  # =================== 上面部分不要动 ===================
+
+
+  # =================== 下方部分需要填写，按照注释部分填写配置，以下有注释部分需要填写，注意填写部分，冒号后面保留一个空格 ===================
+  redis: #这里不要动
+    #redis地址，默认redis，请填写（需要注意本地redis和本地容器redis的host区别，本地默认127.0.0.1，docker默认redis,如果有公网直接填写公网）
+    host: redis
+    #redis（密码默认为空），如果运行redis时设置了密码，请对应填写
+    password:
+    port: 6379 #redis端口地址，默认6379
+
+
+

@@ -31,7 +31,21 @@ check_statics(){
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
       cd ${filePath}
       mkdir -p jd_cookie && cd jd_cookie || exit
-      wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
+      echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
+      echo -e "${yellow}下载文件模式${plain}";
+      echo "   1) 国内模式，启用加速下载"
+      echo "   2) 国外模式，不加速"
+      echo -ne "\n你的选择："
+      read  is_statics_file
+      case $is_statics_file in
+          1) 	echo "国内模式下载中。。。"
+              wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
+          ;;
+          2) 	echo "国外模式下载中。。。"
+              wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
+          ;;
+      esac
+
       if [ $? -ne 0 ]; then
         echo -e "[Error] 下载静态文件失败，请检查网络或重新执行本脚本" && exit 2
       fi
@@ -198,7 +212,20 @@ check_install() {
     if [ ! -f "${filePath}/jd_cookie/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"
        cd ${filePath}/jd_cookie || exit
-       wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://ghproxy.com/https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
+       echo -e "${yellow}下载文件模式${plain}";
+       echo "   1) 国内模式，启用加速下载"
+       echo "   2) 国外模式，不加速"
+       echo -ne "\n你的选择："
+       read  is_jar_file
+       case $is_jar_file in
+            1) 	echo "国内模式下载中。。。"
+                wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://ghproxy.com/https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
+            ;;
+            2) 	echo "国外模式下载中。。。"
+                wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
+            ;;
+       esac
+
        if [ $? -ne 0 ]; then
          echo -e "[Error] 下载app.jar文件失败，请检查网络或重新执行本脚本" && exit 2
        fi
@@ -216,7 +243,20 @@ update_soft() {
   if [ -d "${filePath}/jd_cookie" ]; then
     cd "${filePath}/jd_cookie" || exit
     echo -e "[INFO] 检测到当前已安装jd_cookie，即将下载更新文件"
-    wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+    echo -e "${yellow}下载文件模式${plain}";
+    echo "   1) 国内模式，启用加速下载"
+    echo "   2) 国外模式，不加速"
+    echo -ne "\n你的选择："
+    read  is_new_jar_file
+    case $is_new_jar_file in
+        1) 	echo "国内模式下载中。。。"
+            wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+        ;;
+        2) 	echo "国外模式下载中。。。"
+            wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+        ;;
+    esac
+
     if [ $? -ne 0 ]; then
       echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
     fi
@@ -263,7 +303,6 @@ check_update() {
     check_install
     #成功后下载version文件到本地
     wget -O ${filePath}/jd_cookie/version  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version  >/dev/null 2>&1
-
   fi
 }
 

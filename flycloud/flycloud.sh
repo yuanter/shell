@@ -81,7 +81,7 @@ check_statics(){
       read  is_statics_file
       case $is_statics_file in
           1) 	echo "国内模式下载中。。。"
-             wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
+              wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
           ;;
           2) 	echo "国外模式下载中。。。"
               wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
@@ -299,7 +299,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-           wget -O ${filePath}/flycloud/app.jar  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
+            wget -O ${filePath}/flycloud/app.jar  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}/flycloud/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar

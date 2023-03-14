@@ -322,6 +322,8 @@ update_soft() {
       echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
     fi
 
+    #检测旧版的jd_cookie是否还在运行，需关闭
+    check_jd_cookie
     #检测是否有静态文件
     check_statics
     #检测是否安装启动了redis
@@ -350,6 +352,8 @@ check_update() {
       #成功后下载version文件到本地
       wget -O ${filePath}/flycloud/version  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
     else
+     #检测旧版的jd_cookie是否还在运行，需关闭
+     check_jd_cookie
      #检测是否已经下载静态文件
      check_statics
      #检测是否安装redis

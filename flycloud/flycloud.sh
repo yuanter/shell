@@ -29,9 +29,8 @@ else
     echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
 fi
 
-
+#判断是否已安装dmidecode
 if ! command dmidecode --version >/dev/null 2>&1;  then
-    #判断是否已安装dmidecode
     if [[ x"${release}" == x"centos" ]]; then
         yum -y install dmidecode  >/dev/null 2>&1
     elif [[ x"${release}" == x"ubuntu" ]]; then
@@ -48,7 +47,20 @@ if ! command dmidecode --version >/dev/null 2>&1;  then
     fi
 fi
 
-
+#判断是否还在运行jd_cookie
+check_jd_cookie(){
+    # 关闭容器
+    jd_cookie_id=$(docker ps | grep "jd_cookie" | awk '{print $1}')
+    jd_cookie_id1=$(docker ps -a | grep "jd_cookie" | awk '{print $1}')
+    if [ -n "$jd_cookie_id" ]; then
+      #docker rm -f $jd_cookie_id
+      docker kill $jd_cookie_id
+    else if [ -n "$jd_cookie_id1" ]; then
+      #docker rm -f $jd_cookie_id1
+      docker kill $jd_cookie_id1
+      fi
+    fi
+}
 
 #检测是否需要重启flycloud容器
 check_restart_flycloud(){
@@ -278,6 +290,8 @@ check_install() {
        fi
     fi
 
+    #检测旧版的jd_cookie是否还在运行，需关闭
+    check_jd_cookie
     #检测是否安装redis
     check_redis
     #检测application.yml文件

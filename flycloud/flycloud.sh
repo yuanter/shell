@@ -256,9 +256,9 @@ check_yml(){
         read -r -p "请输入您的授权码：" token
         grep -rnl 'token:'  $filePath/flycloud/application.yml | xargs sed -i -r "s/token:.*$/token: $token/g" >/dev/null 2>&1
         # 授权地址
-        echo -e "${yellow}设置授权网址: ${plain}"
-        read -r -p "请输入您的授权网址：" url
-        grep -rnl 'url:'  $filePath/flycloud/application.yml | xargs sed -i -r "s/url:.*$/url: $url/g" >/dev/null 2>&1
+        #echo -e "${yellow}设置授权网址: ${plain}"
+        #read -r -p "请输入您的授权网址：" url
+        #grep -rnl 'url:'  $filePath/flycloud/application.yml | xargs sed -i -r "s/url:.*$/url: $url/g" >/dev/null 2>&1
     fi
 }
 

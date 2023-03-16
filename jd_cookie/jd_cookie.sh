@@ -27,7 +27,7 @@ case $input in
         read  is_speed_one
 		case $is_speed_one in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O start_jd_cookie.sh  --no-check-certificate https://gitee.com/yuanter/shell/raw/master/jd_cookie/start_jd_cookie.sh
+				wget -O start_jd_cookie.sh  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/start_jd_cookie.sh
 				chmod +x *sh
 				bash start_jd_cookie.sh
 			;;
@@ -47,7 +47,7 @@ case $input in
         read  is_speed_two
 		case $is_speed_two in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O update_jd_cookie.sh  --no-check-certificate https://gitee.com/yuanter/shell/raw/master/jd_cookie/update_jd_cookie.sh
+				wget -O update_jd_cookie.sh  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/update_jd_cookie.sh
 				chmod +x *sh
 				bash update_jd_cookie.sh
 			;;
@@ -67,7 +67,7 @@ case $input in
         read  is_speed_three
 		case $is_speed_three in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O redis_install.sh  --no-check-certificate https://gitee.com/yuanter/shell/raw/master/redis_install.sh
+				wget -O redis_install.sh  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh
 				chmod +x *sh
 				bash redis_install.sh
 			;;

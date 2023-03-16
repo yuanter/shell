@@ -31,7 +31,7 @@ wget -O redis_install.sh https://ghproxy.com/https://raw.githubusercontent.com/y
 
 ### 旧版jd_cookie安装|升级一键脚本
 ```javascript
-wget -O jd_cookie.sh https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/jd_cookie.sh;chmod +x *sh;bash jd_cookie.sh
+wget -O jd_cookie.sh https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/old_jd_cookie.sh;chmod +x *sh;bash jd_cookie.sh
 ```
 
 
@@ -42,11 +42,8 @@ wget -O application.yml https://ghproxy.com/https://raw.githubusercontent.com/yu
 
 ### 新版jd_cookie安装|升级一键脚本
 ```javascript
-wget -O jd_cookie.sh https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie.sh;chmod +x *sh;bash jd_cookie.sh
+wget -O jd_cookie.sh https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/jd_cookie.sh;chmod +x *sh;bash jd_cookie.sh
 ```
-
-
-
 
 ### 809免流环境安装
 ```javascript

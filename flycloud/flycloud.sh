@@ -41,7 +41,7 @@ if ! command dmidecode --version >/dev/null 2>&1;  then
        apt-get -y install dmidecode  >/dev/null 2>&1
     elif [[ x"${release}" == x"debian" ]]; then
        apt-get -y install dmidecode  >/dev/null 2>&1
-    elif[[ x"${release}" == x"Synology" ]]; then
+    elif [[ x"${release}" == x"Synology" ]]; then
         echo -e "${yellow}检测到系统为群晖系统，请先手动安装“${plain}${red}dmidecode${plain}${yellow}”软件包，再执行本脚本！${plain}" && exit 1
     else
         echo -e "${yellow}当前系统不满足安装FlyCloud的条件,在退出安装程序后，请先自行安装${plain}${red}dmidecode${plain}${yellow}，再执行本脚本${plain}"

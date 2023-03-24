@@ -10,33 +10,39 @@ path=$PWD
 #当前文件路径
 filePath=$PWD
 
-# check os
-if [[ -f /etc/redhat-release ]]; then
-    release="centos"
-elif cat /etc/issue | grep -Eqi "debian"; then
-    release="debian"
-elif cat /etc/issue | grep -Eqi "ubuntu"; then
-    release="ubuntu"
-elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
-    release="centos"
-elif cat /proc/version | grep -Eqi "debian"; then
-    release="debian"
-elif cat /proc/version | grep -Eqi "ubuntu"; then
-    release="ubuntu"
-elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
-    release="centos"
-else
-    echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
-fi
+
 
 #判断是否已安装dmidecode
 if ! command dmidecode --version >/dev/null 2>&1;  then
+    # check os
+    if [[ -f /etc/redhat-release ]]; then
+        release="centos"
+    elif cat /etc/issue | grep -Eqi "debian"; then
+        release="debian"
+    elif cat /etc/issue | grep -Eqi "ubuntu"; then
+        release="ubuntu"
+    elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
+        release="centos"
+    elif cat /proc/version | grep -Eqi "debian"; then
+        release="debian"
+    elif cat /proc/version | grep -Eqi "ubuntu"; then
+        release="ubuntu"
+    elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
+        release="centos"
+    elif cat /etc/os-release | grep -Eqi "Synology|DSM"; then
+        release="Synology"
+    else
+        echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
+    fi
+
     if [[ x"${release}" == x"centos" ]]; then
         yum -y install dmidecode  >/dev/null 2>&1
     elif [[ x"${release}" == x"ubuntu" ]]; then
        apt-get -y install dmidecode  >/dev/null 2>&1
     elif [[ x"${release}" == x"debian" ]]; then
        apt-get -y install dmidecode  >/dev/null 2>&1
+    elif[[ x"${release}" == x"Synology" ]]; then
+        echo -e "${red}检测到系统为群晖系统，请先手动安装“dmidecode”软件包，再执行本脚本！${plain}\n" && exit 1
     else
         echo -e "${yellow}当前系统不满足安装FlyCloud的条件,在退出安装程序后，请先自行安装${plain}${red}dmidecode${plain}${yellow}，再执行本脚本${plain}"
         #删除脚本

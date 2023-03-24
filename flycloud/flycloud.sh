@@ -164,7 +164,7 @@ start_flycloud(){
         #使用模式
         num=""
         echo -e "\n${yellow}请输入数字选择启动脚本模式：${plain}"
-        echo "   1) 使用--link模式启动(redis容器和flycloud容器在同一主机，服务器一般推荐使用该模式)"
+        echo "   1) 使用--link模式启动(云服务器一般推荐使用该模式，其他系统如群晖，则不推荐使用)"
         echo "   2) 以普通模式启动"
         echo "   0) 退出"
         echo -ne "\n你的选择："

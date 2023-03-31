@@ -6,10 +6,15 @@ yellow='\033[0;33m'
 plain='\033[0m'
 
 #当前文件路径(默认安装在C盘)
-filePath=C:\\Docker
-if [ ! -d "${filePath}" ]; then
-    mkdir -p ${filePath}
-fi
+#filePath=C:\\Docker
+#if [ ! -d "${filePath}" ]; then
+#    mkdir -p ${filePath}
+#fi
+
+#获取当前路径
+path=$PWD
+#当前文件路径
+filePath=$PWD
 
 #判断是否已安装wget
 if ! command wget -V >/dev/null 2>&1;  then

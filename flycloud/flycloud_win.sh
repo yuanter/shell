@@ -5,16 +5,14 @@ green='\033[0;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 
-#当前文件路径(默认安装在C盘)
-#filePath=C:\\Docker
-#if [ ! -d "${filePath}" ]; then
-#    mkdir -p ${filePath}
-#fi
+当前文件路径(默认安装在C盘)
+filePath=C:\\Docker
+if [ ! -d "${filePath}" ]; then
+    mkdir -p ${filePath}
+fi
 
 #获取当前路径
 path=$PWD
-#当前文件路径
-filePath=$PWD
 
 #判断是否已安装wget
 if ! command wget -V >/dev/null 2>&1;  then
@@ -361,8 +359,8 @@ main() {
   check_update
 
   #删除脚本
-  if [ -f "$filePath\\flycloud.sh" ]; then
-  	rm -rf $filePath\\flycloud.sh
+  if [ -f "$path\\flycloud.sh" ]; then
+  	rm -rf $path\\flycloud.sh
   	echo  -e "${yellow}删除当前脚本文件成功${plain}"
   fi
 

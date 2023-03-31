@@ -337,7 +337,7 @@ check_update() {
   else
     check_install
     #成功后下载version文件到本地
-    wget -O ${filePath}\\flycloud\version  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
+    wget -O ${filePath}\\flycloud\\version  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
 
   fi
 }

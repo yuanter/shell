@@ -70,5 +70,6 @@ wget -O flycloud.sh --no-check-certificate  https://ghproxy.com/https://raw.gith
 
 ### window版本：flycloud(飞云)安装|升级一键脚本
 ```javascript
-wget -O flycloud.sh --no-check-certificate  https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/flycloud_win.sh;sh flycloud.sh
+wget -O flycloud.sh --no-check-certificate  https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/flycloud_win.sh
+sh flycloud.sh
 ```

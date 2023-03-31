@@ -5,7 +5,7 @@ green='\033[0;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 
-当前文件路径(默认安装在C盘)
+#当前文件路径(默认安装在C盘)
 filePath=C:\\Docker
 if [ ! -d "${filePath}" ]; then
     mkdir -p ${filePath}

@@ -12,6 +12,10 @@ path=$PWD
 #当前文件路径
 filePath=$PWD
 
+# 映射文件夹
+if [ ! -d "${filePath}/flycloud/redis" ]; then
+    mkdir -p ${filePath}/flycloud/redis/data
+fi
 
 # 移除容器
 id=$(docker ps | grep "redis" | awk '{print $1}')
@@ -46,9 +50,9 @@ if  [ ! -n "${port}" ] ;then
 fi
 
 if  [ "$psw" == "" ];then
-    docker run --privileged=true --restart=always --name redis -p $port:6379 -d redis redis-server --appendonly yes
+    docker run --privileged=true  --restart=always --name redis -v ${filePath}/flycloud/redis/data:/data -p $port:6379 -d redis redis-server --appendonly yes
 else
-    docker run --privileged=true --restart=always --name redis -p $port:6379 -d redis redis-server --appendonly yes --requirepass "$psw"
+    docker run --privileged=true --restart=always --name redis -v ${filePath}/flycloud/redis/data:/data -p $port:6379 -d redis redis-server --appendonly yes --requirepass "$psw"
 fi
 
 #删除脚本

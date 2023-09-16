@@ -167,7 +167,7 @@ check_yml(){
         # 配置host
         echo -e "   ${yellow}设置redis的连接地址host: ${plain}"
         echo "   1) host使用默认redis（建议云服务器之类的主机选择此项）"
-        echo "   2) host使用ip或者域名（建议N1或者群晖等系统选择此项,当使用公网时，请放行redis使用的公网端口）"
+        echo "   2) host使用内网或者公网ip亦或者域名（建议N1或者群晖等系统选择此项,当使用公网时，请放行redis使用的公网端口）"
         echo "   0) 退出"
         echo -ne "\n你的选择: "
         read host
@@ -176,7 +176,7 @@ check_yml(){
             1)	echo -e "${yellow}host使用默认redis${plain}";
                 grep -rnl 'host:'  $filePath/jd_cookie/application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1
                 echo -e "\n";;
-            2)	echo -e "${yellow}host使用ip或者域名（当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"
+            2)	echo -e "${yellow}host使用内网或者公网ip亦或者域名（当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"
                 read -r -p "请输入ip或者域名：" url
                 if  [ ! -n "${url}" ] ;then
                     #url=$(curl -s ifconfig.me)

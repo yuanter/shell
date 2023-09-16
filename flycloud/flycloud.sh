@@ -224,8 +224,8 @@ check_yml(){
         echo -e "\n   ${yellow}开始配置启动文件：${plain}"
         # 配置host
         echo -e "   ${yellow}设置redis的连接地址host: ${plain}"
-        echo "   1) host使用默认redis"
-        echo "   2) host使用ip或者域名（当使用公网时，请放行redis使用的公网端口）"
+        echo "   1) host使用默认redis（建议云服务器之类的主机选择此项）"
+        echo "   2) host使用ip或者域名（建议N1或者群晖等系统选择此项,当使用公网时，请放行redis使用的公网端口）"
         echo "   0) 退出"
         echo -ne "\n你的选择: "
         read host
@@ -245,12 +245,12 @@ check_yml(){
             ;;
         esac
         # 配置密码
-        echo -e "${yellow}设置redis的密码(默认为空): ${plain}"
-        read -r -p "请输入启动redis时设置的密码，不带特殊字符：" password
+        echo -e "${yellow}设置redis的密码: ${plain}"
+        read -r -p "请输入你之前设置的redis密码（必填）：" password
         grep -rnl 'password:'  $filePath/flycloud/application.yml | xargs sed -i -r "s/password:.*$/password: $password/g" >/dev/null 2>&1
         # 配置端口
-        echo -e "${yellow}设置redis的端口(回车默认6379，当使用--link模式启动时，请使用6379端口)${plain}"
-        echo -e "${yellow}请输入端口(建议使用6379)：${plain}"
+        echo -e "${yellow}开始设置redis的端口（当使用--link模式启动时，请使用6379端口）${plain}"
+        echo -e "${yellow}请输入你之前设置的redis端口(建议使用6379，回车默认6379)：${plain}"
         read port
         if  [ ! -n "${port}" ] ;then
             port=6379;

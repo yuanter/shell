@@ -38,7 +38,7 @@ else
             read  is_speed_two
             case $is_speed_two in
                 1) 	echo "国内模式下载安装脚本中。。。"
-                    wget -O redis_install.sh  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh
+                    wget -O redis_install.sh  --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh
                     chmod +x *sh
                     bash redis_install.sh
                 ;;
@@ -67,7 +67,7 @@ if [ ! -f "/root/jd_cookie/application.yml" ]; then
             read  is_speed_yml_file
             case $is_speed_yml_file in
                 1) 	echo "国内模式下载配置文件application.yml中。。。"
-                    wget -O $path/jd_cookie/application.yml  --no-check-certificate https://ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml
+                    wget -O $path/jd_cookie/application.yml  --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml
                     echo -e "${yellow}当前新下载的application.yml文件所在路径为：$path/jd_cookie${plain}"
                     path=$path/jd_cookie
                 ;;

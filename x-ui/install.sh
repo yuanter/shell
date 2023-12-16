@@ -1,6 +1,6 @@
 cd /root/
 last_version=$(curl -Ls "https://api.github.com/repos/vaxilu/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-wget https://ghproxy.com/https://github.com/vaxilu/x-ui/releases/download/$last_version/x-ui-linux-amd64.tar.gz
+wget http://hub.jasas.eu.org/https://github.com/vaxilu/x-ui/releases/download/$last_version/x-ui-linux-amd64.tar.gz
 rm x-ui/ /usr/local/x-ui/ /usr/bin/x-ui -rf
 tar zxvf x-ui-linux-amd64.tar.gz
 chmod +x x-ui/x-ui x-ui/bin/xray-linux-* x-ui/x-ui.sh

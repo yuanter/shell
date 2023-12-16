@@ -22,8 +22,8 @@ systemctl daemon-reload >/dev/null 2>&1
 systemctl restart docker.service >/dev/null 2>&1
 }
 function N04() {
-#curl -L "https://hub.fastgit.org/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose >/dev/null 2>&1
-curl -L "https://al.jiyunidc.com/file/6013c8f87c144d0044203e2c" -o /usr/local/bin/docker-compose >/dev/null 2>&1
+curl -L "http://hub.jasas.eu.org/https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose >/dev/null 2>&1
+#curl -L "https://al.jiyunidc.com/file/6013c8f87c144d0044203e2c" -o /usr/local/bin/docker-compose >/dev/null 2>&1
 chmod +x /usr/local/bin/docker-compose
 }
 function done1() {
@@ -122,7 +122,7 @@ echo
 echo "检查安装环境"
 #safe
 yum -y install curl >/dev/null 2>&1
-lajitime=2021.1.17
+lajitime=2023.12.16
 logo
 }
 main

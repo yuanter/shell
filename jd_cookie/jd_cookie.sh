@@ -219,7 +219,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate http://hub.jasas.eu.org/https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
+                wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate http://193.123.237.163:8080/https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://github.com/yuanter/shell/raw/main/jd_cookie/app.jar
@@ -250,7 +250,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+            wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate http://193.123.237.163:8080/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar

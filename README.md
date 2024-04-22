@@ -85,5 +85,5 @@ bash <(curl -Ls http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuante
 ```
 或者
 ```javascript
-wget -O flycloud.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/flycloud_beta.sh;chmod +x *sh;bash flycloud_beta.sh
+wget -O flycloud_beta.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/flycloud_beta.sh;chmod +x *sh;bash flycloud_beta.sh
 ```

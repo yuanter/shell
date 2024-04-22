@@ -63,7 +63,11 @@ bash <(curl -s http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter
 ```
 
 
-### Linux版本：flycloud(飞云)安装|升级一键脚本
+### Linux版本：flycloud(飞云)安装|升级一键脚本（二选一）
+```javascript
+bash <(curl -Ls http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/flycloud.sh)
+```
+或者
 ```javascript
 wget -O flycloud.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/flycloud.sh;chmod +x *sh;bash flycloud.sh
 ```
@@ -72,4 +76,10 @@ wget -O flycloud.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.
 ```javascript
 wget -O flycloud.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/flycloud_win.sh
 sh flycloud.sh
+```
+
+
+### （内侧版）Linux版本：flycloud(飞云)安装|升级一键脚本（二选一）
+```javascript
+bash <(curl -Ls http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/flycloud_beta.sh)
 ```

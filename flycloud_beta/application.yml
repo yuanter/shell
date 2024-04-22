@@ -1,0 +1,35 @@
+server:
+  port: 1170
+
+
+spring:
+  thymeleaf:
+    content-type: text/html
+    cache: false
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+  # =================== 上面部分不要动 ===================
+
+  # =================== 下方部分需要填写，按照注释部分填写配置，以下有注释部分需要填写，注意填写部分保留空格 ===================
+  redis: #这里不要动
+    #redis地址，默认redis，请填写（需要注意本地redis和本地容器redis的host区别，本地默认127.0.0.1，docker默认redis,如果有公网直接填写公网）
+    host: redis
+    #redis（密码默认为空），如果运行redis时设置了密码，请对应填写
+    password: 
+    port: 6379 #redis端口地址，默认6379
+
+
+# ======================================= FlyCloud授权token ===========================================
+fly_cloud:
+  # 请在此处填入您的授权码，冒号后面保留有一个空格，请注意
+  token: 
+  # 激活地址，最后不带斜杆
+  url: http://flycloud.yuanter.top
+
+
+

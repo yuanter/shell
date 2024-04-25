@@ -159,7 +159,7 @@ start_flycloud(){
         cd "${filePath}/flycloud_beta" || exit
         # 更新镜像
         echo -e "\n${yellow}更新最新镜像中...${plain}"
-        docker pull yuanter/flycloud:latest
+        docker pull yuanter/flycloud:test
 
         #使用模式
         num=""

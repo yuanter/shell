@@ -284,7 +284,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate http://131.186.22.14:1888/https://github.com/yuanter/shell/raw/main/flycloud_beta/app.jar
+                wget -O ${filePath}/flycloud_beta/app.jar --timeout=30 --tries=5 --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://github.com/yuanter/shell/raw/main/flycloud_beta/app.jar
@@ -317,7 +317,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate http://131.186.22.14:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
+            wget -O ${filePath}/flycloud_beta/app.jar --timeout=30 --tries=5 --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar

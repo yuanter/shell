@@ -68,7 +68,11 @@ check_redis(){
       echo -e "${green}检测到已安装redis镜像，跳过安装redis镜像过程${plain}"
       docker restart $redis_id1
     else
-      echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}";
+      if netstat -tuln | grep -q ":6379"; then
+        echo -e "${yellow}当前端口 6379 已被占用.可能已安装了redis${plain}"
+      else
+        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}";
+      fi
       echo "   1) 安装redis"
       echo "   0) 退出整个脚本安装程序"
       read input
@@ -106,7 +110,7 @@ start_jd_cookie(){
         #使用模式
         num=""
         echo -e "\n${yellow}请输入数字选择启动脚本模式：${plain}"
-        echo "   1) 使用--link模式启动(云服务器一般推荐使用该模式，其他如群晖系统，部分用户不可用)"
+        echo "   1) 使用关联redis模式启动，请保证redis端口为6379(云服务器一般推荐使用该模式，其他如群晖系统，部分用户不可用)"
         echo "   2) 以普通模式启动"
         echo "   0) 退出"
         echo -ne "\n你的选择："
@@ -114,7 +118,7 @@ start_jd_cookie(){
         num=$param
         case $param in
             0) echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
-            1) echo -e "${yellow}使用--link模式启动脚本${plain}"; echo -e "\n"
+            1) echo -e "${yellow}使用关联redis模式启动脚本，请保证redis端口为6379${plain}"; echo -e "\n"
                read -r -p "请确定使用该脚本的前提是redis是使用本脚本安装的容器且redis端口为6379，同时和jd_cookie容器在同一个主机? [y/n]: " link_input
                case $link_input in
                  [yY][eE][sS]|[yY]) ;;
@@ -127,7 +131,7 @@ start_jd_cookie(){
         #启动容器
         if  [ $num -eq 1 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie --link redis:redis yuanter/jd_cookie
-            echo -e "${yellow}使用--link模式启动成功${plain}"
+            echo -e "${yellow}使用关联redis模式启动成功${plain}"
         else if [ $num -eq 2 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie yuanter/jd_cookie
             echo -e "${yellow}以普通模式启动成功${plain}"
@@ -166,14 +170,14 @@ check_yml(){
         echo -e "\n   ${yellow}开始配置启动文件：${plain}"
         # 配置host
         echo -e "   ${yellow}设置redis的连接地址host: ${plain}"
-        echo "   1) host使用默认redis（建议云服务器之类的主机选择此项）"
+        echo "   1) host默认关联redis启动，请保证redis端口为6379（建议云服务器之类的主机选择此项）"
         echo "   2) host使用内网或者公网ip亦或者域名（建议N1或者群晖等系统选择此项,当使用公网时，请放行redis使用的公网端口）"
         echo "   0) 退出"
         echo -ne "\n你的选择: "
         read host
         case $host in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
-            1)	echo -e "${yellow}host使用默认redis${plain}";
+            1)	echo -e "${yellow}host默认关联redis启动，请保证redis端口为6379${plain}";
                 grep -rnl 'host:'  $filePath/jd_cookie/application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1
                 echo -e "\n";;
             2)	echo -e "${yellow}host使用内网或者公网ip亦或者域名（当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"

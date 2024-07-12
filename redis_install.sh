@@ -42,7 +42,7 @@ if  [ ! -n "${psw}" ] ;then
     fi
 fi
 
-echo -e "${yellow}请输入redis的端口(默认6379)：${plain}";
+echo -e "${yellow}请输入redis的端口(建议使用6379，回车默认6379)：${plain}";
 read  port
 if  [ ! -n "${port}" ] ;then
     port=6379;

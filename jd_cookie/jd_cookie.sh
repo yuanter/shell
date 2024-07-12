@@ -191,11 +191,11 @@ check_yml(){
             ;;
         esac
         # 配置密码
-        echo -e "${yellow}设置redis的密码: ${plain}"
+        echo -e "${yellow}配置本程序连接redis的密码: ${plain}"
         read -r -p "请输入你之前设置的redis密码（必填）：" password
         grep -rnl 'password:'  $filePath/jd_cookie/application.yml | xargs sed -i -r "s/password:.*$/password: $password/g" >/dev/null 2>&1
         # 配置端口
-        echo -e "${yellow}开始设置redis的端口（当使用--link模式启动时，请使用6379端口）${plain}"
+        echo -e "${yellow}配置连接redis的端口（当使用关联redis模式启动时，请使用6379端口）${plain}"
         echo -e "${yellow}请输入你之前设置的redis端口(建议使用6379，回车默认6379)：${plain}"
         read port
         if  [ ! -n "${port}" ] ;then
@@ -246,7 +246,7 @@ check_install() {
 update_soft() {
   if [ -d "${filePath}/jd_cookie" ]; then
     cd "${filePath}/jd_cookie" || exit
-    echo -e "[INFO] 检测到当前已安装jd_cookie，即将下载更新文件"
+    echo -e "[INFO] 当前已安装jd_cookie，检测到有新版本，即将下载更新文件"
     echo -e "${yellow}下载文件模式${plain}";
     echo "   1) 国内模式，启用加速下载"
     echo "   2) 国外模式，不加速"

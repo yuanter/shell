@@ -49,6 +49,23 @@ if  [ ! -n "${port}" ] ;then
     echo -e "${yellow}redis使用默认端口6379${plain}"
 fi
 
+if netstat -tuln | grep -q ":$port"; then
+    echo "当前端口 ${port} 已被占用，请重新更换端口"
+    read  port
+fi
+
+if  [ ! -n "${port}" ] ;then
+    port=6379;
+    echo -e "${yellow}redis使用默认端口6379${plain}"
+fi
+
+if netstat -tuln | grep -q ":$port"; then
+    echo "当前端口 ${port} 已被占用."
+    echo -e "${red}退出redis安装程序${plain}"
+    exit 1
+fi
+
+
 if  [ "$psw" == "" ];then
     docker run --privileged=true  --restart=always --name redis -v ${filePath}/redis/data:/data -p $port:6379 -d redis redis-server --appendonly yes
 else

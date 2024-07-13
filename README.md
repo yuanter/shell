@@ -23,11 +23,11 @@ wget -O install.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.g
 ```
 
 
-
 ### redis一键脚本
 ```javascript
 wget -O redis_install.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh;chmod +x *sh;bash redis_install.sh
 ```
+
 
 ### 旧版jd_cookie安装|升级一键脚本
 ```javascript
@@ -40,10 +40,12 @@ wget -O jd_cookie.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw
 wget -O application.yml --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml
 ```
 
+
 ### 新版jd_cookie安装|升级一键脚本
 ```javascript
 wget -O jd_cookie.sh --no-check-certificate  http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/jd_cookie.sh;chmod +x *sh;bash jd_cookie.sh
 ```
+
 
 ### 809免流环境安装
 ```javascript

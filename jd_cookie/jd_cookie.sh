@@ -183,7 +183,7 @@ check_yml(){
             2)	echo -e "${yellow}host使用内网或者公网ip亦或者域名（当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"
                 read -r -p "请输入ip或者域名：" url
                 if  [ ! -n "${url}" ] ;then
-                    #url=$(curl -s ifconfig.me)
+                    #url=$(curl -Ls ifconfig.me)
                     echo -e "${red}未输入ip地址，退出程序${plain}"
                     exit 1
                 fi
@@ -278,7 +278,7 @@ update_soft() {
 }
 
 check_update() {
-  new_version=$(curl -s "http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version")
+  new_version=$(curl -Ls "http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version")
   echo -e "[SUCCESS] 当前最新版本为：${new_version}"
   if [ -d "${filePath}/jd_cookie" ]; then
     cd ${filePath}/jd_cookie || exit
@@ -330,7 +330,7 @@ main() {
   fi
 
   echo  -e "${yellow}jd_cookie启动成功${plain}"
-  ip_url=$(curl -s ifconfig.me)
+  ip_url=$(curl -Ls ifconfig.me)
   echo  -e "${yellow}查看日志请在控制台输入：docker logs -f --tail 100 jd_cookie${plain}"
   echo  -e "${yellow}请网页打开本项目地址：http://$ip_url:1170${plain}"
 }

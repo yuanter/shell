@@ -108,7 +108,7 @@ case $host in
     2)	echo -e "${yellow}host使用ip或者域名（当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"
 		read -r -p "请输入ip或者域名：" url
 		if  [ ! -n "${url}" ] ;then
-			#url=$(curl -s ifconfig.me)
+			#url=$(curl -Ls ifconfig.me)
 			echo -e "${red}未输入ip地址，退出程序${plain}"
 			exit 1 
 		fi
@@ -187,7 +187,7 @@ if [ -f "$filePath/start_jd_cookie.sh" ]; then
 fi
 
 echo  -e "${green}jd_cookie启动成功${plain}"
-ip_url=$(curl -s ifconfig.me)
+ip_url=$(curl -Ls ifconfig.me)
 echo  -e "${yellow}请网页打开本项目地址：http://$ip_url:1170${plain}"
 
 

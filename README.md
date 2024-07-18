@@ -55,13 +55,13 @@ wget -O install.sh --no-check-certificate  http://ghb.jdmk.xyz:1888/https://raw.
 
 ### 809免流脚本
 ```javascript
-bash <(curl -s http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/809ml/path)
+bash <(curl -Ls http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/809ml/path)
 ```
 
 
 ### 809免流订阅脚本
 ```javascript
-bash <(curl -s http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/809ml/sub)
+bash <(curl -Ls http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/809ml/sub)
 ```
 
 

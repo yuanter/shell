@@ -188,10 +188,10 @@ start_flycloud(){
 
         #启动容器
         if  [ $num -eq 1 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud  --tmpfs /run --tmpfs /run/lock --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud --link redis:redis yuanter/flycloud:test
+            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud --link redis:redis yuanter/flycloud:test
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
         else if [ $num -eq 2 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud  --tmpfs /run --tmpfs /run/lock --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud yuanter/flycloud:test
+            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud yuanter/flycloud:test
             echo -e "${yellow}以普通模式启动成功${plain}"
             fi
         fi

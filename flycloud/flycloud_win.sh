@@ -255,7 +255,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
+                wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}\\flycloud\\app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
@@ -288,7 +288,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
+            wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}\\flycloud\\app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar

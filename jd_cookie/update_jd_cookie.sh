@@ -151,6 +151,27 @@ fi
 cd $path
 echo -e "application.yml文件所在路径为：$PWD"
 
+#检测app.jar
+cd ${filePath}/jd_cookie || exit
+echo -e "${yellow}下载文件模式${plain}";
+echo "   1) 国内模式，启用加速下载"
+echo "   2) 国外模式，不加速"
+echo -ne "\n你的选择："
+read  is_jar_file
+case $is_jar_file in
+    1) 	echo "国内模式下载中。。。"
+        wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+    ;;
+    2) 	echo "国外模式下载中。。。"
+        wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+    ;;
+esac
+
+if [ $? -ne 0 ]; then
+ echo -e "[Error] 下载app.jar文件失败，请检查网络或重新执行本脚本" && exit 2
+fi
+
+
 
 #判断redis是否启动了
 redis_id=$(docker ps -a | grep "redis" | awk '{print $1}')

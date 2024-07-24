@@ -33,7 +33,7 @@ esac
 
 # 配置host
 echo -e "   ${yellow}jd_cookie安装与升级聚合脚本 ${plain}"
-echo "   1) 安装jd_cookie(自带安装redis容器)"
+echo "   1) 安装jd_cookie(自带安装redis容器,需要root权限)"
 echo "   2) 升级jd_cookie"
 echo "   3) 安装redis容器（额外脚本，非必选）"
 echo "   0) 退出"

@@ -30,7 +30,7 @@ case $is_speed in
         if  [ ! -n "${proxyURLTemp}" ] ;then
             echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
         else
-            proxyURL=is_speed
+            proxyURL=${is_speed}
         fi
    ;;
    2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"
@@ -195,10 +195,10 @@ esac
 
 #启动容器
 if  [ $num -eq 1 ];then
-	docker run -d --privileged=true --restart=always  --name jd_cookie -p 1170:1170  -v $path/application.yml:/application.yml --link redis:redis yuanter/jd_cookie:16.4
+	docker run -d --privileged=true --restart=always  --name jd_cookie -p 1170:1170  -v $path/application.yml:/application.yml --link redis:redis yuanter/jd_cookie
     echo -e "${yellow}使用--link模式启动成功${plain}"
 else if [ $num -eq 2 ];then
-	docker run -d --privileged=true --restart=always  --name jd_cookie -p 1170:1170  -v $path/application.yml:/application.yml yuanter/jd_cookie:16.4
+	docker run -d --privileged=true --restart=always  --name jd_cookie -p 1170:1170  -v $path/application.yml:/application.yml yuanter/jd_cookie
     echo -e "${yellow}以普通模式启动成功${plain}"
 	fi
 fi

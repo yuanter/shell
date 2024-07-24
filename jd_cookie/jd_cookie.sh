@@ -25,7 +25,7 @@ case $is_speed in
         if  [ ! -n "${proxyURLTemp}" ] ;then
             echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
         else
-            proxyURL=$is_speed
+            proxyURL=${proxyURLTemp}
             echo -e "${yellow}使用自定义加速镜像${proxyURL}${plain}"
         fi
    ;;

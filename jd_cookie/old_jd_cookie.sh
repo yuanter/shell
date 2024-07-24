@@ -7,7 +7,28 @@ plain='\033[0m'
 
 # 一键脚本
 echo -e "\n   ${yellow}欢迎使用jd_cookie一键脚本：${plain}"
-
+#代理地址
+proxyURL='http://ghb.jdmk.xyz:1888/'
+proxyURL2=''
+# 是否使用自定义加速镜像
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置http://ghb.jdmk.xyz:1888/）？${plain}"
+echo "   1) 国内主机，需要使用"
+echo "   2) 国外主机或使用内置加速镜像，不需要"
+echo -ne "\n你的选择："
+read  is_speed
+case $is_speed in
+   1) echo "加速模式启用中。。。"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
+        read  proxyURLTemp
+        if  [ ! -n "${proxyURLTemp}" ] ;then
+            echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
+        else
+            proxyURL=is_speed
+        fi
+   ;;
+   2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"
+   ;;
+esac
 
 # 配置host
 echo -e "   ${yellow}jd_cookie安装与升级聚合脚本 ${plain}"
@@ -27,7 +48,7 @@ case $input in
         read  is_speed_one
 		case $is_speed_one in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O start_jd_cookie.sh  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/start_jd_cookie.sh
+				wget -O start_jd_cookie.sh  --no-check-certificate ${proxyURL}/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/start_jd_cookie.sh
 				chmod +x *sh
 				bash start_jd_cookie.sh
 			;;
@@ -47,7 +68,7 @@ case $input in
         read  is_speed_two
 		case $is_speed_two in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O update_jd_cookie.sh  --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/update_jd_cookie.sh
+				wget -O update_jd_cookie.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/update_jd_cookie.sh
 				chmod +x *sh
 				bash update_jd_cookie.sh
 			;;
@@ -67,7 +88,7 @@ case $input in
         read  is_speed_three
 		case $is_speed_three in
 			1) 	echo "国内模式下载安装脚本中。。。"
-				wget -O redis_install.sh  --no-check-certificate http://hub.jasas.eu.org/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh
+				wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh
 				chmod +x *sh
 				bash redis_install.sh
 			;;

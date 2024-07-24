@@ -81,7 +81,7 @@ sh flycloud.sh
 ```
 
 
-### （内侧版）Linux版本：flycloud(飞云)安装|升级一键脚本（二选一）
+### （内测版）Linux版本：flycloud(飞云)安装|升级一键脚本（二选一）
 ```javascript
 bash <(curl -Ls http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/flycloud_beta.sh)
 ```

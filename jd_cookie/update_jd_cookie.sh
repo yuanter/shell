@@ -7,6 +7,28 @@ plain='\033[0m'
 
 echo -e "${yellow}正在升级安装jd_cookie中...${plain}";
 
+#代理地址
+proxyURL='http://ghb.jdmk.xyz:1888/'
+proxyURL2=''
+# 是否使用自定义加速镜像
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置http://ghb.jdmk.xyz:1888/）？${plain}"
+echo "   1) 国内主机，需要使用"
+echo "   2) 国外主机或使用内置加速镜像，不需要"
+echo -ne "\n你的选择："
+read  is_speed
+case $is_speed in
+   1) echo "加速模式启用中。。。"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
+        read  proxyURLTemp
+        if  [ ! -n "${proxyURLTemp}" ] ;then
+            echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
+        else
+            proxyURL=is_speed
+        fi
+   ;;
+   2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"
+   ;;
+esac
 
 #使用模式
 num=""
@@ -62,7 +84,7 @@ if [ ! -f "/root/jd_cookie/application.yml" ]; then
                     read  is_speed_yml_file
                     case $is_speed_yml_file in
                         1) 	echo "国内模式下载配置文件application.yml中。。。"
-                            wget -O $path/jd_cookie/application.yml  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml
+                            wget -O $path/jd_cookie/application.yml  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml
                             echo -e "${yellow}当前新下载的application.yml文件所在路径为：$path/jd_cookie${plain}"
                             path=$path/jd_cookie
                         ;;

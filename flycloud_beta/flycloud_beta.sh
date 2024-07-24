@@ -11,7 +11,6 @@ path=$PWD
 filePath=$PWD
 
 
-
 #判断是否已安装dmidecode
 if ! command dmidecode --version >/dev/null 2>&1;  then
     # check os
@@ -52,6 +51,30 @@ if ! command dmidecode --version >/dev/null 2>&1;  then
         exit 1
     fi
 fi
+
+
+#代理地址
+proxyURL='http://ghb.jdmk.xyz:1888/'
+proxyURL2='https://mirror.ghproxy.com/'
+# 是否使用自定义加速镜像
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置http://ghb.jdmk.xyz:1888/）？${plain}"
+echo "   1) 国内主机，需要使用"
+echo "   2) 国外主机或使用内置加速镜像，不需要"
+echo -ne "\n你的选择："
+read  is_speed
+case $is_speed in
+   1) echo "加速模式启用中。。。"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
+        read  proxyURLTemp
+        if  [ ! -n "${proxyURLTemp}" ] ;then
+            echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
+        else
+            proxyURL=is_speed
+        fi
+   ;;
+   2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"
+   ;;
+esac
 
 #判断是否还在运行jd_cookie
 check_jd_cookie(){
@@ -97,7 +120,7 @@ check_statics(){
       read  is_statics_file
       case $is_statics_file in
           1) 	echo "国内模式下载中。。。"
-              wget -O ${filePath}/flycloud_beta/statics.tar.gz  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/statics.tar.gz
+              wget -O ${filePath}/flycloud_beta/statics.tar.gz  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/statics.tar.gz
           ;;
           2) 	echo "国外模式下载中。。。"
               wget -O ${filePath}/flycloud_beta/statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/statics.tar.gz
@@ -144,7 +167,7 @@ check_redis(){
                 read  is_speed_two
                 case $is_speed_two in
                     1) 	echo "国内模式下载安装脚本中。。。"
-                        wget -O redis_install.sh  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
+                        wget -O redis_install.sh  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                         chmod +x *sh
                         bash redis_install.sh
                     ;;
@@ -211,7 +234,7 @@ check_yml(){
         read  is_speed_yml_file
         case $is_speed_yml_file in
             1) 	echo "国内模式下载配置文件application.yml中。。。"
-                wget -O $filePath/flycloud_beta/application.yml  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/application.yml >/dev/null 2>&1
+                wget -O $filePath/flycloud_beta/application.yml  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/application.yml >/dev/null 2>&1
                 echo -e "${yellow}当前新下载的application.yml文件所在路径为：$filePath/flycloud_beta${plain}"
             ;;
             2) 	echo "国外模式下载配置文件application.yml中。。。"
@@ -288,7 +311,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
+                wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://github.com/yuanter/shell/raw/main/flycloud_beta/app.jar
@@ -321,7 +344,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
+            wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
@@ -347,7 +370,7 @@ update_soft() {
 }
 
 check_update() {
-  new_version=$(curl -Ls "http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version")
+  new_version=$(curl -Ls "{proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version")
   echo -e "[SUCCESS] 当前最新版本为：${new_version}"
   if [ -d "${filePath}/flycloud_beta" ]; then
     cd ${filePath}/flycloud_beta || exit
@@ -360,7 +383,7 @@ check_update() {
       #检测更新
       update_soft
       #成功后下载version文件到本地
-      wget -O ${filePath}/flycloud_beta/version  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version  >/dev/null 2>&1
+      wget -O ${filePath}/flycloud_beta/version  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version  >/dev/null 2>&1
     else
      #检测旧版的jd_cookie是否还在运行，需关闭
      check_jd_cookie
@@ -377,7 +400,7 @@ check_update() {
   else
     check_install
     #成功后下载version文件到本地
-    wget -O ${filePath}/flycloud_beta/version  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version  >/dev/null 2>&1
+    wget -O ${filePath}/flycloud_beta/version  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/version  >/dev/null 2>&1
 
   fi
 }

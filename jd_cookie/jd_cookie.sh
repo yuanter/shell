@@ -9,6 +9,28 @@ plain='\033[0m'
 path=$PWD
 #当前文件路径
 filePath=$PWD
+#代理地址
+proxyURL='http://ghb.jdmk.xyz:1888/'
+proxyURL2=''
+# 是否使用自定义加速镜像
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置http://ghb.jdmk.xyz:1888/）？${plain}"
+echo "   1) 国内主机，需要使用"
+echo "   2) 国外主机或使用内置加速镜像，不需要"
+echo -ne "\n你的选择："
+read  is_speed
+case $is_speed in
+   1) echo "加速模式启用中。。。"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
+        read  proxyURLTemp
+        if  [ ! -n "${proxyURLTemp}" ] ;then
+            echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
+        else
+            proxyURL=is_speed
+        fi
+   ;;
+   2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"
+   ;;
+esac
 
 #检测是否需要重启jd_cookie容器
 check_restart_jd_cookie(){
@@ -39,7 +61,7 @@ check_statics(){
       read  is_statics_file
       case $is_statics_file in
           1) 	echo "国内模式下载中。。。"
-              wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
+              wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
           ;;
           2) 	echo "国外模式下载中。。。"
               wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
@@ -86,7 +108,7 @@ check_redis(){
                 read  is_speed_two
                 case $is_speed_two in
                     1) 	echo "国内模式下载安装脚本中。。。"
-                        wget -O redis_install.sh  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
+                        wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                         chmod +x *sh
                         bash redis_install.sh
                     ;;
@@ -110,7 +132,7 @@ start_jd_cookie(){
         #使用模式
         num=""
         echo -e "\n${yellow}请输入数字选择启动脚本模式：${plain}"
-        echo "   1) 使用关联redis模式启动，请保证redis端口为6379(云服务器一般推荐使用该模式，其他如群晖系统，部分用户不可用)"
+        echo "   1) 使用关联redis模式启动，请保证redis端口为6379(云服务器一般推荐使用该模式，其他如群晖系统等少部分用户不可用)"
         echo "   2) 以普通模式启动"
         echo "   0) 退出"
         echo -ne "\n你的选择："
@@ -153,7 +175,7 @@ check_yml(){
         read  is_speed_yml_file
         case $is_speed_yml_file in
             1) 	echo "国内模式下载配置文件application.yml中。。。"
-                wget -O $filePath/jd_cookie/application.yml  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml >/dev/null 2>&1
+                wget -O $filePath/jd_cookie/application.yml  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/application.yml >/dev/null 2>&1
                 echo -e "${yellow}当前新下载的application.yml文件所在路径为：$filePath/jd_cookie${plain}"
             ;;
             2) 	echo "国外模式下载配置文件application.yml中。。。"
@@ -223,7 +245,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+                wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
@@ -254,7 +276,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
+            wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}/jd_cookie/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
@@ -278,7 +300,7 @@ update_soft() {
 }
 
 check_update() {
-  new_version=$(curl -Ls "http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version")
+  new_version=$(curl -Ls "${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version")
   echo -e "[SUCCESS] 当前最新版本为：${new_version}"
   if [ -d "${filePath}/jd_cookie" ]; then
     cd ${filePath}/jd_cookie || exit
@@ -291,7 +313,7 @@ check_update() {
       #检测更新
       update_soft
       #成功后下载version文件到本地
-      wget -O ${filePath}/jd_cookie/version  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version  >/dev/null 2>&1
+      wget -O ${filePath}/jd_cookie/version  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version  >/dev/null 2>&1
     else
      #检测是否已经下载静态文件
      check_statics
@@ -306,7 +328,7 @@ check_update() {
   else
     check_install
     #成功后下载version文件到本地
-    wget -O ${filePath}/jd_cookie/version  --no-check-certificate http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version  >/dev/null 2>&1
+    wget -O ${filePath}/jd_cookie/version  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version  >/dev/null 2>&1
   fi
 }
 

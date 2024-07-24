@@ -25,7 +25,8 @@ case $is_speed in
         if  [ ! -n "${proxyURLTemp}" ] ;then
             echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
         else
-            proxyURL=${is_speed}
+            proxyURL=$is_speed
+            echo -e "${yellow}使用自定义加速镜像${proxyURL}${plain}"
         fi
    ;;
    2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"

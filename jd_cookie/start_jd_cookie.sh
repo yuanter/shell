@@ -28,10 +28,10 @@ case $is_speed in
         echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
         read  proxyURLTemp
         if  [ ! -n "${proxyURLTemp}" ] ;then
-            echo -e "${yellow}使用默认加速镜像${proxyURL}${plain}"
+            echo -e "${yellow}使用默认加速镜像：${proxyURL}${plain}"
         else
             proxyURL=${proxyURLTemp}
-            echo -e "${yellow}使用自定义加速镜像${proxyURL}${plain}"
+            echo -e "${yellow}使用自定义加速镜像：${proxyURL}${plain}"
         fi
    ;;
    2) echo "你选择了国外主机或使用内置加速镜像,不需要设置"

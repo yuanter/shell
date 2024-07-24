@@ -90,7 +90,7 @@ check_statics(){
       read  is_statics_file
       case $is_statics_file in
           1) 	echo "国内模式下载中。。。"
-              wget -O ${filePath}\\flycloud\\statics.tar.gz  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
+              wget -O ${filePath}\\flycloud\\statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
           ;;
           2) 	echo "国外模式下载中。。。"
               wget -O ${filePath}\\flycloud\\statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
@@ -204,7 +204,7 @@ check_yml(){
         read  is_speed_yml_file
         case $is_speed_yml_file in
             1) 	echo "国内模式下载配置文件application.yml中。。。"
-                wget -O ${filePath}\\flycloud\\application.yml  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/application.yml >/dev/null 2>&1
+                wget -O ${filePath}\\flycloud\\application.yml  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/application.yml >/dev/null 2>&1
                 echo -e "${yellow}当前新下载的application.yml文件所在路径为：${filePath}\\flycloud${plain}"
             ;;
             2) 	echo "国外模式下载配置文件application.yml中。。。"
@@ -281,7 +281,7 @@ check_install() {
        read  is_jar_file
        case $is_jar_file in
             1) 	echo "国内模式下载中。。。"
-                wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
+                wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
             ;;
             2) 	echo "国外模式下载中。。。"
                 wget -O ${filePath}\\flycloud\\app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
@@ -314,7 +314,7 @@ update_soft() {
     read  is_new_jar_file
     case $is_new_jar_file in
         1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
+            wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}\\flycloud\\app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
         ;;
         2) 	echo "国外模式下载中。。。"
             wget -O ${filePath}\\flycloud\\app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
@@ -340,7 +340,7 @@ update_soft() {
 }
 
 check_update() {
-  new_version=$(curl -Ls "{proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version")
+  new_version=$(curl -Ls "${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version")
   echo -e "[SUCCESS] 当前最新版本为：${new_version}"
   if [ -d "${filePath}\\flycloud" ]; then
     cd ${filePath}\\flycloud || exit
@@ -353,7 +353,7 @@ check_update() {
       #检测更新
       update_soft
       #成功后下载version文件到本地
-      wget -O ${filePath}\\flycloud\\version  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
+      wget -O ${filePath}\\flycloud\\version  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
     else
      #检测旧版的jd_cookie是否还在运行，需关闭
      check_jd_cookie
@@ -370,7 +370,7 @@ check_update() {
   else
     check_install
     #成功后下载version文件到本地
-    wget -O ${filePath}\\flycloud\\version  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
+    wget -O ${filePath}\\flycloud\\version  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version  >/dev/null 2>&1
 
   fi
 }

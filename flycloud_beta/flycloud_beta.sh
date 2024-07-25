@@ -297,10 +297,8 @@ check_yml(){
 }
 
 
-check_install() {
-    #检测静态文件
-    check_statics
-
+#检测是否已经有app.jar文件
+check_jar(){
     #检测app.jar
     if [ ! -f "${filePath}/flycloud_beta/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"
@@ -323,7 +321,14 @@ check_install() {
          echo -e "[Error] 下载app.jar文件失败，请检查网络或重新执行本脚本" && exit 2
        fi
     fi
+}
 
+
+check_install() {
+    #检测静态文件
+    check_statics
+    #检测app.jar
+    check_jar
     #检测旧版的jd_cookie是否还在运行，需关闭
     check_jd_cookie
     #检测是否安装redis
@@ -394,6 +399,8 @@ check_update() {
      check_redis
      #检测是否已经有配置文件
      check_yml
+     #检测是否已经有app.jar文件
+     check_jar
      #启动flycloud
      cd ${filePath}/flycloud_beta && check_restart_flycloud
      echo  -e "${yellow}当前没有需要升级的版本${plain}"

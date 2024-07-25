@@ -323,6 +323,27 @@ check_jar(){
     fi
 }
 
+#升级app.jar文件
+update_jar(){
+    echo -e "[INFO] 当前已安装flycloud，检测到有新版本，即将下载更新文件"
+    echo -e "${yellow}下载文件模式${plain}";
+    echo "   1) 国内模式，启用加速下载"
+    echo "   2) 国外模式，不加速"
+    echo -ne "\n你的选择："
+    read  is_new_jar_file
+    case $is_new_jar_file in
+        1) 	echo "国内模式下载中。。。"
+            wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
+        ;;
+        2) 	echo "国外模式下载中。。。"
+            wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
+        ;;
+    esac
+
+    if [ $? -ne 0 ]; then
+      echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
+    fi
+}
 
 check_install() {
     #检测静态文件
@@ -342,25 +363,8 @@ check_install() {
 update_soft() {
   if [ -d "${filePath}/flycloud_beta" ]; then
     cd "${filePath}/flycloud_beta" || exit
-    echo -e "[INFO] 当前已安装flycloud，检测到有新版本，即将下载更新文件"
-    echo -e "${yellow}下载文件模式${plain}";
-    echo "   1) 国内模式，启用加速下载"
-    echo "   2) 国外模式，不加速"
-    echo -ne "\n你的选择："
-    read  is_new_jar_file
-    case $is_new_jar_file in
-        1) 	echo "国内模式下载中。。。"
-            wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar || wget -O ${filePath}/flycloud_beta/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
-        ;;
-        2) 	echo "国外模式下载中。。。"
-            wget -O ${filePath}/flycloud_beta/app.jar  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud_beta/app.jar
-        ;;
-    esac
-
-    if [ $? -ne 0 ]; then
-      echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
-    fi
-
+    #升级app.jar文件
+    update_jar
     #检测旧版的jd_cookie是否还在运行，需关闭
     check_jd_cookie
     #检测是否有静态文件

@@ -323,24 +323,8 @@ check_jar(){
     fi
 }
 
-check_install() {
-    #检测静态文件
-    check_statics
-    #检测app.jar
-    check_jar
-    #检测旧版的jd_cookie是否还在运行，需关闭
-    check_jd_cookie
-    #检测是否安装redis
-    check_redis
-    #检测application.yml文件
-    check_yml
-    #启动容器
-    check_restart_flycloud
-}
-
-update_soft() {
-  if [ -d "${filePath}/flycloud" ]; then
-    cd "${filePath}/flycloud" || exit
+#升级app.jar文件
+update_jar(){
     echo -e "[INFO] 当前已安装flycloud，检测到有新版本，即将下载更新文件"
     echo -e "${yellow}下载文件模式${plain}";
     echo "   1) 国内模式，启用加速下载"
@@ -359,7 +343,28 @@ update_soft() {
     if [ $? -ne 0 ]; then
       echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
     fi
+}
 
+check_install() {
+    #检测静态文件
+    check_statics
+    #检测app.jar
+    check_jar
+    #检测旧版的jd_cookie是否还在运行，需关闭
+    check_jd_cookie
+    #检测是否安装redis
+    check_redis
+    #检测application.yml文件
+    check_yml
+    #启动容器
+    check_restart_flycloud
+}
+
+update_soft() {
+  if [ -d "${filePath}/flycloud" ]; then
+    cd "${filePath}/flycloud" || exit
+    #升级app.jar文件
+    update_jar
     #检测旧版的jd_cookie是否还在运行，需关闭
     check_jd_cookie
     #检测是否有静态文件

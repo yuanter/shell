@@ -231,10 +231,8 @@ check_yml(){
 }
 
 
-check_install() {
-    #检测静态文件
-    check_statics
-
+#检测是否已经有app.jar文件
+check_jar(){
     #检测app.jar
     if [ ! -f "${filePath}/jd_cookie/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"
@@ -257,18 +255,10 @@ check_install() {
          echo -e "[Error] 下载app.jar文件失败，请检查网络或重新执行本脚本" && exit 2
        fi
     fi
-
-    #检测是否安装redis
-    check_redis
-    #检测application.yml文件
-    check_yml
-    #启动容器
-    check_restart_jd_cookie
 }
 
-update_soft() {
-  if [ -d "${filePath}/jd_cookie" ]; then
-    cd "${filePath}/jd_cookie" || exit
+#升级app.jar文件
+update_jar(){
     echo -e "[INFO] 当前已安装jd_cookie，检测到有新版本，即将下载更新文件"
     echo -e "${yellow}下载文件模式${plain}";
     echo "   1) 国内模式，启用加速下载"
@@ -287,7 +277,27 @@ update_soft() {
     if [ $? -ne 0 ]; then
       echo -e "[Error] 下载文件失败，请检查网络或重新执行本脚本"  && exit 2
     fi
+}
 
+
+check_install() {
+    #检测静态文件
+    check_statics
+    #检测app.jar
+    check_jar
+    #检测是否安装redis
+    check_redis
+    #检测application.yml文件
+    check_yml
+    #启动容器
+    check_restart_jd_cookie
+}
+
+update_soft() {
+  if [ -d "${filePath}/jd_cookie" ]; then
+    cd "${filePath}/jd_cookie" || exit
+    #升级app.jar文件
+    update_jar
     #检测是否有静态文件
     check_statics
     #检测是否安装启动了redis
@@ -322,6 +332,8 @@ check_update() {
      check_redis
      #检测是否已经有配置文件
      check_yml
+     #检测是否已经有app.jar文件
+     check_jar
      #启动jd_cookie
      cd ${filePath}/jd_cookie && check_restart_jd_cookie
      echo  -e "${yellow}当前没有需要升级的版本${plain}"

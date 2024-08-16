@@ -121,7 +121,7 @@ check_statics(){
       read  is_statics_file
       case $is_statics_file in
           1) 	echo "国内模式下载中。。。"
-              wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
+              wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
           ;;
           2) 	echo "国外模式下载中。。。"
               wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
@@ -169,7 +169,7 @@ check_redis(){
                 read  is_speed_two
                 case $is_speed_two in
                     1) 	echo "国内模式下载安装脚本中。。。"
-                        wget -O redis_install.sh  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
+                        wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                         chmod +x *sh
                         bash redis_install.sh
                     ;;

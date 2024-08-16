@@ -137,7 +137,7 @@ check_redis(){
                 read  is_speed_two
                 case $is_speed_two in
                     1) 	echo "国内模式下载安装脚本中。。。"
-                        wget -O redis_install.sh  --no-check-certificate {proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
+                        wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                         chmod +x *sh
                         bash redis_install.sh
                     ;;

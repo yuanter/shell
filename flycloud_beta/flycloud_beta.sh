@@ -210,12 +210,15 @@ start_flycloud(){
             2) echo -e "${yellow}以普通模式启动脚本${plain}"; echo -e "\n";;
         esac
 
+        #获取mac并固定
+        mac=cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address
+
         #启动容器
         if  [ $num -eq 1 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud --link redis:redis yuanter/flycloud:test
+            docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud --link redis:redis yuanter/flycloud:test
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
         else if [ $num -eq 2 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud yuanter/flycloud:test
+            docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud_beta:/root/flycloud yuanter/flycloud:test
             echo -e "${yellow}以普通模式启动成功${plain}"
             fi
         fi

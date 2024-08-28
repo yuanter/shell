@@ -211,7 +211,7 @@ start_flycloud(){
         esac
 
         #获取mac并固定
-        mac=cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address
+        mac=$(cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address)
 
         #启动容器
         if  [ $num -eq 1 ];then

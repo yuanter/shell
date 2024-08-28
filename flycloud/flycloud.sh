@@ -55,14 +55,14 @@ fi
 proxyURL='http://ghb.jdmk.xyz:1888/'
 proxyURL2='https://mirror.ghproxy.com/'
 # 是否使用自定义加速镜像
-echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置http://ghb.jdmk.xyz:1888/）？${plain}"
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置${proxyURL}）？${plain}"
 echo "   1) 国内主机，需要使用"
 echo "   2) 国外主机或使用内置加速镜像，不需要"
 echo -ne "\n你的选择："
 read  is_speed
 case $is_speed in
    1) echo "加速模式启用中。。。"
-        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：http://ghb.jdmk.xyz:1888/，请注意后面的斜杆/${plain}"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：${proxyURL}，请注意后面的斜杆/${plain}"
         read  proxyURLTemp
         if  [ ! -n "${proxyURLTemp}" ] ;then
             echo -e "${yellow}使用默认加速镜像：${proxyURL}${plain}"
@@ -211,12 +211,15 @@ start_flycloud(){
             2) echo -e "${yellow}以普通模式启动脚本${plain}"; echo -e "\n";;
         esac
 
+        #获取mac并固定
+        mac=$(cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address)
+
         #启动容器
         if  [ $num -eq 1 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud:/root/flycloud --link redis:redis yuanter/flycloud
+            docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud:/root/flycloud --link redis:redis yuanter/flycloud
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
         else if [ $num -eq 2 ];then
-            docker run -d --privileged=true --restart=always  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud:/root/flycloud yuanter/flycloud
+            docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170 -v /sbin/dmidecode:/sbin/dmidecode -v /dev/mem:/dev/mem  -v ${filePath}/flycloud:/root/flycloud yuanter/flycloud
             echo -e "${yellow}以普通模式启动成功${plain}"
             fi
         fi

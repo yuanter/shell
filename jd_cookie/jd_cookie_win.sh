@@ -316,7 +316,7 @@ update_soft() {
 
 check_update() {
   new_version=$(curl -Ls "${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/version")
-  echo -e "[SUCCESS] 当前最新版本为：$(date -d @${new_version} '+%Y-%m-%d %H:%M:%S')"
+  echo -e "[SUCCESS] 当前最新版本为：$(date -d @$((new_version/1000)) '+%Y-%m-%d %H:%M:%S')"
   if [ -d "${filePath}\\jd_cookie" ]; then
     cd ${filePath}\\jd_cookie || exit
     if [ ! -f ${filePath}\\jd_cookie\\version ]; then

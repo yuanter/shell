@@ -44,6 +44,11 @@ wget -O jd_cookie.sh --no-check-certificate  http://ghb.jdmk.xyz:1888/https://ra
 bash <(curl -Ls http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/jd_cookie.sh)
 ```
 
+### window版本：jd_cookie安装|升级一键脚本
+```javascript
+wget -O jd_cookie.sh --no-check-certificate  http://ghb.jdmk.xyz:1888/https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/jd_cookie_win.sh
+sh jd_cookie.sh
+```
 
 ### 809免流环境安装
 ```javascript

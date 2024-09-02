@@ -341,7 +341,7 @@ update_soft() {
 
 check_update() {
   new_version=$(curl -Ls "${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/version")
-  echo -e "[SUCCESS] 当前最新版本为：date -d @${new_version} '+%Y-%m-%d %H:%M:%S'"
+  echo -e "[SUCCESS] 当前最新版本为：$(date -d @${new_version} '+%Y-%m-%d %H:%M:%S')"
   if [ -d "${filePath}\\flycloud" ]; then
     cd ${filePath}\\flycloud || exit
     if [ ! -f ${filePath}\\flycloud\\version ]; then

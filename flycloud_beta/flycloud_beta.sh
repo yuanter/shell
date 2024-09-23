@@ -110,7 +110,6 @@ check_restart_flycloud(){
 #检测是否已下载静态文件statics
 check_statics(){
     if [ ! -d "${filePath}/flycloud_beta/statics" ]; then
-
       cd ${filePath}
       mkdir -p flycloud_beta && cd flycloud_beta || exit
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"

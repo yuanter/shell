@@ -119,7 +119,7 @@ check_redis(){
       read input
       case $input in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
-            1)	echo -e "${yellow}正在拉取安装redis脚本${plain}";
+            1)	echo -e "${yellow}正在拉取安装redis脚本${plain}"
                 wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                 chmod +x *sh
                 bash redis_install.sh
@@ -192,7 +192,7 @@ check_yml(){
         read host
         case $host in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
-            1)	echo -e "${yellow}host使用默认redis，请保证redis端口为6379${plain}";
+            1)	echo -e "${yellow}host使用默认redis，请保证redis端口为6379${plain}"
                 grep -rnl 'host:'  ${filePath}\\\\flycloud\\\\application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1
                 echo -e "\n";;
             2)	echo -e "${yellow}通用模式（host使用内网或者公网ip亦或者域名。当使用公网时，请放行redis使用的公网端口）${plain}"; echo -e "\n"

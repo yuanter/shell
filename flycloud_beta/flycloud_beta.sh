@@ -57,14 +57,14 @@ fi
 proxyURL='http://ghb.jdmk.xyz:1888/'
 proxyURL2='https://mirror.ghproxy.com/'
 # 是否使用自定义加速镜像
-echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置${proxyURL}）？${plain}"
+echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速（已内置加速镜像）？${plain}"
 echo "   1) 国内主机，需要使用"
-echo "   2) 国外主机或使用内置加速镜像，不需要"
+echo "   2) 国外主机，不需要"
 echo -ne "\n你的选择："
 read  is_speed
 case $is_speed in
    1) echo "加速模式启用中。。。"
-        echo -e "\n   ${yellow}请输入您的自定义加速镜像，格式如：${proxyURL}，请注意后面的斜杆/${plain}"
+        echo -e "\n   ${yellow}请输入您的自定义加速镜像（回车使用默认加速镜像），格式如：https://mirror.ghproxy.com/，请注意后面的斜杆/${plain}"
         read  proxyURLTemp
         if  [ ! -n "${proxyURLTemp}" ] ;then
             echo -e "${yellow}使用默认加速镜像：${proxyURL}${plain}"
@@ -440,8 +440,9 @@ main() {
 
   echo  -e "${yellow}flycloud启动成功${plain}"
   ip_url=$(curl -Ls ifconfig.me)
-  echo  -e "${yellow}查看日志请在控制台输入：docker logs -f --tail 100 flycloud${plain}"
-  echo  -e "${yellow}请网页打开本项目地址：http://$ip_url:1170${plain}"
+  echo  -e "${yellow}查看日志请在终端输入：docker logs -f --tail 100 flycloud${plain}"
+  echo  -e "${yellow}有公网ip请网页打开本项目地址：http://$ip_url:1170${plain}"
+  echo  -e "${yellow}无公网ip请使用内网或者本地ip127.0.0.1替换上方ip${ip_url}${plain}"
 }
 
 main

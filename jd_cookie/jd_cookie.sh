@@ -41,9 +41,8 @@ check_restart_jd_cookie(){
     jd_cookie_id1=$(docker ps -a | grep "jd_cookie" | awk '{print $1}')
     if [ -n "$jd_cookie_id" ]; then
       docker rm -f $jd_cookie_id
-    else if [ -n "$jd_cookie_id1" ]; then
+    elif [ -n "$jd_cookie_id1" ]; then
       docker rm -f $jd_cookie_id1
-      fi
     fi
     #未启动时，需要启动
     start_jd_cookie
@@ -130,10 +129,9 @@ start_jd_cookie(){
         if  [ $num -eq 1 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie --link redis:redis yuanter/jd_cookie
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
-        else if [ $num -eq 2 ];then
+        elif [ $num -eq 2 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie yuanter/jd_cookie
             echo -e "${yellow}以通用模式启动成功${plain}"
-        	fi
         fi
 }
 

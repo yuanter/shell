@@ -46,10 +46,10 @@ check_jd_cookie(){
     if [ -n "$jd_cookie_id" ]; then
       #docker rm -f $jd_cookie_id
       docker kill $jd_cookie_id
-    else if [ -n "$jd_cookie_id1" ]; then
+    elif [ -n "$jd_cookie_id1" ]; then
       #docker rm -f $jd_cookie_id1
       docker kill $jd_cookie_id1
-      fi
+      
     fi
 }
 
@@ -60,9 +60,9 @@ check_restart_flycloud(){
     flycloud_id1=$(docker ps -a | grep "flycloud" | awk '{print $1}')
     if [ -n "$flycloud_id" ]; then
       docker rm -f $flycloud_id
-    else if [ -n "$flycloud_id1" ]; then
+    elif [ -n "$flycloud_id1" ]; then
       docker rm -f $flycloud_id1
-      fi
+      
     fi
     #未启动时，需要启动
     start_flycloud
@@ -153,10 +153,10 @@ start_flycloud(){
         if  [ $num -eq 1 ];then
             docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170  -v ${filePath}/flycloud:/root/flycloud --link redis:redis yuanter/flycloud
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
-        else if [ $num -eq 2 ];then
+        elif [ $num -eq 2 ];then
             docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170  -v ${filePath}/flycloud:/root/flycloud yuanter/flycloud
             echo -e "${yellow}以通用模式启动成功${plain}"
-            fi
+            
         fi
 }
 

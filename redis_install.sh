@@ -22,9 +22,8 @@ id=$(docker ps | grep "redis" | awk '{print $1}')
 id1=$(docker ps -a | grep "redis" | awk '{print $1}')
 if [ -n "$id" ]; then
   docker rm -f $id
-else if [ -n "$id1" ]; then
+elif [ -n "$id1" ]; then
   docker rm -f $id1
-  fi
 fi
 
 

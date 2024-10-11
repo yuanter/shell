@@ -65,7 +65,7 @@ if netstat -tuln | grep -q ":${port}"; then
 fi
 
 
-if  [ "${psw}" == "" ];then
+if  [ -z "${psw}" ];then
     docker run --privileged=true  --restart=always --name redis -v ${filePath}/redis/data:/data -p ${port}:6379 -d redis redis-server --appendonly yes
 else
     docker run --privileged=true --restart=always --name redis -v ${filePath}/redis/data:/data -p ${port}:6379 -d redis redis-server --appendonly yes --requirepass "$psw"

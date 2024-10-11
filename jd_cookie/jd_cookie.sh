@@ -18,7 +18,7 @@ echo "   1) 国内主机，需要使用"
 echo "   2) 国外主机或使用内置加速镜像，不需要"
 echo -ne "\n你的选择："
 read  is_speed
-case $is_speed in
+case ${is_speed} in
    1) echo "加速模式启用中。。。"
         echo -e "\n   ${yellow}请输入您的自定义加速镜像（回车使用默认加速镜像），格式如：https://mirror.ghproxy.com/，请注意后面的斜杆/${plain}"
         read  proxyURLTemp
@@ -39,10 +39,10 @@ check_restart_jd_cookie(){
     # 移除容器
     jd_cookie_id=$(docker ps | grep "jd_cookie" | awk '{print $1}')
     jd_cookie_id1=$(docker ps -a | grep "jd_cookie" | awk '{print $1}')
-    if [ -n "$jd_cookie_id" ]; then
-      docker rm -f $jd_cookie_id
-    elif [ -n "$jd_cookie_id1" ]; then
-      docker rm -f $jd_cookie_id1
+    if [ -n "${jd_cookie_id}" ]; then
+      docker rm -f ${jd_cookie_id}
+    elif [ -n "${jd_cookie_id1}" ]; then
+      docker rm -f ${jd_cookie_id1}
     fi
     #未启动时，需要启动
     start_jd_cookie
@@ -70,14 +70,14 @@ check_redis(){
     #判断是否已安装redis镜像
     redis_id=$(docker ps | grep "redis" | awk '{print $1}')
     redis_id1=$(docker ps -a | grep "redis" | awk '{print $1}')
-    if [ -n "$redis_id" ]; then
+    if [ -n "${redis_id}" ]; then
       #docker rm -f $redis_id
       echo -e "${yellow}检测到已安装redis镜像，跳过安装redis镜像过程${plain}"
       docker restart $redis_id
-    elif [ -n "$redis_id1" ]; then
+    elif [ -n "${redis_id1}" ]; then
       #docker rm -f $redis_id1
       echo -e "${green}检测到已安装redis镜像，跳过安装redis镜像过程${plain}"
-      docker restart $redis_id1
+      docker restart ${redis_id1}
     else
       if netstat -tuln | grep -q ":6379"; then
         echo -e "${yellow}当前端口 6379 已被占用.可能已安装了redis${plain}"
@@ -87,7 +87,7 @@ check_redis(){
       echo "   1) 安装redis"
       echo "   0) 退出整个脚本安装程序"
       read input
-      case $input in
+      case ${input} in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
             1)	echo -e "${yellow}正在拉取安装redis脚本${plain}"
                 wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
@@ -112,12 +112,12 @@ start_jd_cookie(){
         echo "   0) 退出"
         echo -ne "\n你的选择："
         read param
-        num=$param
-        case $param in
+        num=${param}
+        case ${param} in
             0) echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
             1) echo -e "${yellow}使用关联redis模式启动容器，请保证redis端口为6379${plain}"; echo -e "\n"
                read -r -p "请确定启动容器的前提是redis是使用本脚本安装的容器且redis端口为6379，同时和jd_cookie容器在同一个主机? [y/n]: " link_input
-               case $link_input in
+               case ${link_input} in
                  [yY][eE][sS]|[yY]) ;;
         		 [nN][oO]|[nN]) exit 1 ;;
         		 esac
@@ -126,10 +126,10 @@ start_jd_cookie(){
         esac
 
         #启动容器
-        if  [ $num -eq 1 ];then
+        if  [ ${num} -eq 1 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie --link redis:redis yuanter/jd_cookie
             echo -e "${yellow}使用关联redis模式启动成功${plain}"
-        elif [ $num -eq 2 ];then
+        elif [ ${num} -eq 2 ];then
         	docker run -d --privileged=true --restart=always  --name jd_cookie --ulimit core=0 -p 1170:1170  -v ${filePath}/jd_cookie:/root/jd_cookie yuanter/jd_cookie
             echo -e "${yellow}以通用模式启动成功${plain}"
         fi
@@ -159,7 +159,7 @@ check_yml(){
         echo "   0) 退出"
         echo -ne "\n你的选择: "
         read host
-        case $host in
+        case ${host} in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
             1)	echo -e "${yellow}host默认关联redis启动，请保证redis端口为6379${plain}"
                 grep -rnl 'host:'  ${filePath}/jd_cookie/application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1

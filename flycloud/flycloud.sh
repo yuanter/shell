@@ -74,7 +74,7 @@ check_statics(){
       cd ${filePath}
       mkdir -p flycloud && cd flycloud || exit
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
-      echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz${plain}";
+      echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz${plain}"
       wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
 
       if [ $? -ne 0 ]; then
@@ -103,7 +103,7 @@ check_redis(){
       if netstat -tuln | grep -q ":6379"; then
         echo -e "${yellow}当前端口 6379 已被占用.可能已安装了redis${plain}"
       else
-        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}";
+        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}"
       fi
       echo "   1) 安装redis"
       echo "   0) 退出整个脚本安装程序"
@@ -167,7 +167,7 @@ check_yml(){
     echo -e "${yellow}检测application.yml配置文件中...${plain}\n"
     if [ ! -f "${filePath}/flycloud/application.yml" ]; then
         echo -e "${yellow}检测到application.yml配置文件不存在，开始下载一份示例文件用于初始化...${plain}\n"
-        echo -e "${yellow}开始下载application.yml配置文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/application.yml${plain}";
+        echo -e "${yellow}开始下载application.yml配置文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/application.yml${plain}"
         wget -O ${filePath}/flycloud/application.yml  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/application.yml >/dev/null 2>&1
         echo -e "${yellow}当前新下载的application.yml文件所在路径为：${filePath}/flycloud${plain}"
 
@@ -231,7 +231,7 @@ check_jar(){
     if [ ! -f "${filePath}/flycloud/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"
        cd ${filePath}/flycloud || exit
-       echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar${plain}";
+       echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar${plain}"
        wget -O ${filePath}/flycloud/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}/flycloud/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
 
        if [ $? -ne 0 ]; then
@@ -243,7 +243,7 @@ check_jar(){
 #升级app.jar文件
 update_jar(){
     echo -e "[INFO] 当前已安装flycloud，检测到有新版本，即将下载更新文件"
-    echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar${plain}";
+    echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar${plain}"
     wget -O ${filePath}/flycloud/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar || wget -O ${filePath}/flycloud/app.jar --timeout=60 --connect-timeout=60 --tries=3 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/app.jar
 
     if [ $? -ne 0 ]; then

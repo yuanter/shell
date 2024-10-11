@@ -31,7 +31,7 @@ fi
 # 安装redis镜像
 echo -e "${yellow}正在拉取redis容器中...${plain}\n";
 docker pull redis
-echo -e "${yellow}请输入redis密码(不要设置简单且带特殊字符密码)：${plain}";
+echo -e "${yellow}请输入redis密码(不要设置简单且带特殊字符密码)：${plain}"
 read  psw
 if  [ ! -n "${psw}" ] ;then
     echo -e "${yellow}叼毛，redis一定要设置密码,再给你一次机会，重新输入密码${plain}\n"
@@ -42,7 +42,7 @@ if  [ ! -n "${psw}" ] ;then
     fi
 fi
 
-echo -e "${yellow}请输入redis的端口(建议使用6379，回车默认6379)：${plain}";
+echo -e "${yellow}请输入redis的端口(建议使用6379，回车默认6379)：${plain}"
 read  port
 if  [ ! -n "${port}" ] ;then
     port=6379;

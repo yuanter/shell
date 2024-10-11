@@ -55,7 +55,7 @@ check_statics(){
       cd ${filePath}
       mkdir -p jd_cookie && cd jd_cookie || exit
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
-      echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz${plain}";
+      echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz${plain}"
       wget -O ${filePath}/jd_cookie/statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/statics.tar.gz
 
       if [ $? -ne 0 ]; then
@@ -83,7 +83,7 @@ check_redis(){
       if netstat -tuln | grep -q ":6379"; then
         echo -e "${yellow}当前端口 6379 已被占用.可能已安装了redis${plain}"
       else
-        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}";
+        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}"
       fi
       echo "   1) 安装redis"
       echo "   0) 退出整个脚本安装程序"
@@ -202,7 +202,7 @@ check_jar(){
     if [ ! -f "${filePath}/jd_cookie/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"
        cd ${filePath}/jd_cookie || exit
-       echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar${plain}";
+       echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar${plain}"
        wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
 
        if [ $? -ne 0 ]; then
@@ -214,7 +214,7 @@ check_jar(){
 #升级app.jar文件
 update_jar(){
     echo -e "[INFO] 当前已安装jd_cookie，检测到有新版本，即将下载更新文件"
-    echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar${plain}";
+    echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar${plain}"
     wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar || wget -O ${filePath}/jd_cookie/app.jar --timeout=30 --tries=5 --no-check-certificate ${proxyURL2}https://raw.githubusercontent.com/yuanter/shell/main/jd_cookie/app.jar
 
     if [ $? -ne 0 ]; then

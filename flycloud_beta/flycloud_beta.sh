@@ -152,15 +152,15 @@ check_redis(){
       if netstat -tuln | grep -q ":6379"; then
         echo -e "${yellow}当前端口 6379 已被占用.可能已安装了redis${plain}"
       else
-        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}";
+        echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}"
       fi
       echo "   1) 安装redis"
       echo "   0) 退出整个脚本安装程序"
       read input
       case $input in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
-            1)	echo -e "${yellow}正在拉取安装redis脚本${plain}";
-                echo -e "${yellow}下载脚本模式${plain}";
+            1)	echo -e "${yellow}正在拉取安装redis脚本${plain}"
+                echo -e "${yellow}下载脚本模式${plain}"
                 echo "   1) 国内模式，启用加速"
                 echo "   2) 国外模式，不加速"
                 echo -ne "\n你的选择："

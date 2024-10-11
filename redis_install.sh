@@ -20,10 +20,10 @@ fi
 # 移除容器
 id=$(docker ps | grep "redis" | awk '{print $1}')
 id1=$(docker ps -a | grep "redis" | awk '{print $1}')
-if [ -n "$id" ]; then
-  docker rm -f $id
-elif [ -n "$id1" ]; then
-  docker rm -f $id1
+if [ -n "${id}" ]; then
+  docker rm -f ${id}
+elif [ -n "${id1}" ]; then
+  docker rm -f ${id1}
 fi
 
 
@@ -36,8 +36,8 @@ if  [ ! -n "${psw}" ] ;then
     echo -e "${yellow}叼毛，redis一定要设置密码,再给你一次机会，重新输入密码${plain}\n"
     read  psw
     if  [ ! -n "${psw}" ] ;then
-        psw=$(</dev/urandom tr -dc '1234567890qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c16)
-        echo -e "你个叼毛，都说让你重新输密码了。现在系统自动给你生成了一个新密码，记好了，密码是${yellow}$psw${plain}"
+        psw=$(</dev/urandom tr -dc "1234567890qwertQWERTasdfgASDFGzxcvbZXCVB" | head -c16)
+        echo -e "你个叼毛，都说让你重新输密码了。现在系统自动给你生成了一个新密码，记好了，密码是${yellow}${psw}${plain}"
     fi
 fi
 
@@ -48,7 +48,7 @@ if  [ ! -n "${port}" ] ;then
     echo -e "${yellow}redis使用默认端口6379${plain}"
 fi
 
-if netstat -tuln | grep -q ":$port"; then
+if netstat -tuln | grep -q ":${port}"; then
     echo "当前端口 ${port} 已被占用，请重新更换端口"
     read  port
 fi
@@ -58,28 +58,28 @@ if  [ ! -n "${port}" ] ;then
     echo -e "${yellow}redis使用默认端口6379${plain}"
 fi
 
-if netstat -tuln | grep -q ":$port"; then
+if netstat -tuln | grep -q ":${port}"; then
     echo "当前端口 ${port} 已被占用."
     echo -e "${red}退出redis安装程序${plain}"
     exit 1
 fi
 
 
-if  [ "$psw" == "" ];then
-    docker run --privileged=true  --restart=always --name redis -v ${filePath}/redis/data:/data -p $port:6379 -d redis redis-server --appendonly yes
+if  [ "${psw}" == "" ];then
+    docker run --privileged=true  --restart=always --name redis -v ${filePath}/redis/data:/data -p ${port}:6379 -d redis redis-server --appendonly yes
 else
-    docker run --privileged=true --restart=always --name redis -v ${filePath}/redis/data:/data -p $port:6379 -d redis redis-server --appendonly yes --requirepass "$psw"
+    docker run --privileged=true --restart=always --name redis -v ${filePath}/redis/data:/data -p ${port}:6379 -d redis redis-server --appendonly yes --requirepass "$psw"
 fi
 
 #删除脚本
-if [ -f "$filePath/redis_install.sh" ]; then
-	rm -rf $filePath/redis_install.sh
+if [ -f "${filePath}/redis_install.sh" ]; then
+	rm -rf ${filePath}/redis_install.sh
 	echo  -e "${green}删除当前脚本文件成功${plain}"
 fi
 
 
 echo -e "${yellow}redis启动成功${plain}"
-echo -e "${yellow}请牢记，redis端口（记得开放防火墙端口）为：${port}\n密码：$psw${plain}"
+echo -e "${yellow}请牢记，redis端口（记得开放防火墙端口）为：${port}\n密码：${psw}${plain}"
 echo -e "\n"
 
 

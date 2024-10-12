@@ -49,7 +49,6 @@ check_jd_cookie(){
     elif [ -n "$jd_cookie_id1" ]; then
       #docker rm -f $jd_cookie_id1
       docker kill $jd_cookie_id1
-      
     fi
 }
 
@@ -62,7 +61,6 @@ check_restart_flycloud(){
       docker rm -f $flycloud_id
     elif [ -n "$flycloud_id1" ]; then
       docker rm -f $flycloud_id1
-      
     fi
     #未启动时，需要启动
     start_flycloud
@@ -88,8 +86,8 @@ check_statics(){
 #检测是否安装redis
 check_redis(){
     #判断是否已安装redis镜像
-    redis_id=$(docker ps | grep "redis" | awk "{print $1}")
-    redis_id1=$(docker ps -a | grep "redis" | awk "{print $1}")
+    redis_id=$(docker ps | grep "redis" | awk '{print $1}')
+    redis_id1=$(docker ps -a | grep "redis" | awk '{print $1}')
 
     if [ -n "$redis_id" ]; then
       #docker rm -f $redis_id
@@ -156,7 +154,7 @@ start_flycloud(){
         elif [ $num -eq 2 ];then
             docker run -d --privileged=true --restart=always --mac-address ${mac}  --name flycloud --ulimit core=0 -p 1170:1170  -v ${filePath}/flycloud:/root/flycloud yuanter/flycloud
             echo -e "${yellow}以通用模式启动成功${plain}"
-            
+
         fi
 }
 

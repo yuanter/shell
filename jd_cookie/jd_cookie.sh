@@ -104,6 +104,8 @@ start_jd_cookie(){
         echo -e "\n${yellow}更新最新镜像中...${plain}"
         docker pull yuanter/jd_cookie:latest
 
+        docker images -f "dangling=true" -f "reference=yuanter/jd_cookie" -q | xargs -r docker rmi
+
         #使用模式
         num=""
         echo -e "\n${yellow}请输入数字选择启动容器模式（选择配置文件时设置的对应模式）：${plain}"

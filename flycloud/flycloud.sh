@@ -123,6 +123,9 @@ start_flycloud(){
         echo -e "\n${yellow}更新最新镜像中...${plain}"
         docker pull yuanter/flycloud:latest
 
+        # 删除新镜像残留的悬空镜像
+        docker images -f "dangling=true" -f "reference=yuanter/flycloud" -q | xargs -r docker rmi
+
         #使用模式
         num=""
         echo -e "\n${yellow}请输入数字选择启动脚本模式（选择配置文件时设置的对应模式）：${plain}"

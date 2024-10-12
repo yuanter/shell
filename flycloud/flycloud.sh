@@ -1,9 +1,9 @@
 #!/bin/bash
 
-red="\033[0;31m"
-green="\033[0;32m"
-yellow="\033[0;33m"
-plain="\033[0m"
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+plain='\033[0m'
 
 #获取当前路径
 path=$PWD
@@ -12,8 +12,8 @@ filePath=$PWD
 
 
 #代理地址
-proxyURL="http://ghb.jdmk.xyz:1888/"
-proxyURL2="https://mirror.ghproxy.com/"
+proxyURL='http://ghb.jdmk.xyz:1888/'
+proxyURL2='https://mirror.ghproxy.com/'
 # 是否使用自定义加速镜像
 echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速？(已内置加速镜像)${plain}"
 echo "   1) 国内主机，需要使用"
@@ -41,8 +41,8 @@ esac
 #判断是否还在运行jd_cookie
 check_jd_cookie(){
     # 关闭容器
-    jd_cookie_id=$(docker ps | grep "jd_cookie" | awk "{print $1}")
-    jd_cookie_id1=$(docker ps -a | grep "jd_cookie" | awk "{print $1}")
+    jd_cookie_id=$(docker ps | grep "jd_cookie" | awk '{print $1}')
+    jd_cookie_id1=$(docker ps -a | grep "jd_cookie" | awk '{print $1}')
     if [ -n "$jd_cookie_id" ]; then
       #docker rm -f $jd_cookie_id
       docker kill $jd_cookie_id
@@ -55,8 +55,8 @@ check_jd_cookie(){
 #检测是否需要重启flycloud容器
 check_restart_flycloud(){
     # 移除容器
-    flycloud_id=$(docker ps | grep "flycloud" | awk "{print $1}")
-    flycloud_id1=$(docker ps -a | grep "flycloud" | awk "{print $1}")
+    flycloud_id=$(docker ps | grep "flycloud" | awk '{print $1}')
+    flycloud_id1=$(docker ps -a | grep "flycloud" | awk '{print $1}')
     if [ -n "$flycloud_id" ]; then
       docker rm -f $flycloud_id
     elif [ -n "$flycloud_id1" ]; then
@@ -86,8 +86,8 @@ check_statics(){
 #检测是否安装redis
 check_redis(){
     #判断是否已安装redis镜像
-    redis_id=$(docker ps | grep "redis" | awk "{print $1}")
-    redis_id1=$(docker ps -a | grep "redis" | awk "{print $1}")
+    redis_id=$(docker ps | grep "redis" | awk '{print $1}')
+    redis_id1=$(docker ps -a | grep "redis" | awk '{print $1}')
 
     if [ -n "$redis_id" ]; then
       #docker rm -f $redis_id
@@ -145,7 +145,7 @@ start_flycloud(){
         esac
 
         #获取mac并固定
-        mac=$(cat /sys/class/net/$(ip route show default | awk "/default/ {print $5}")/address)
+        mac=$(cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address)
 
         #启动容器
         if  [ $num -eq 1 ];then
@@ -185,7 +185,7 @@ check_yml(){
         case $host in
             0)	echo -e "${yellow}退出脚本程序${plain}";exit 1 ;;
             1)	echo -e "${yellow}host使用默认redis，请保证redis端口为6379${plain}"
-                grep -rnl "host:"  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1
+                grep -rnl 'host:'  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/host:.*$/host: redis/g" >/dev/null 2>&1
                 echo -e "\n";;
             2)	echo -e "${yellow}通用模式（host使用内网或者公网ip亦或者域名。当使用公网ip时，请放行redis使用的公网端口）${plain}"; echo -e "\n"
                 read -r -p "请输入ip或者域名：" url
@@ -196,13 +196,13 @@ check_yml(){
                     rm -rf ${filePath}/flycloud/application.yml
                     exit 1
                 fi
-                grep -rnl "host:"  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/host:.*$/host: $url/g" >/dev/null 2>&1
+                grep -rnl 'host:'  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/host:.*$/host: $url/g" >/dev/null 2>&1
             ;;
         esac
         # 配置密码
         echo -e "${yellow}配置本程序连接redis的密码: ${plain}"
         read -r -p "请输入你之前设置的redis密码（必填）：" password
-        grep -rnl "password:"  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/password:.*$/password: $password/g" >/dev/null 2>&1
+        grep -rnl 'password:'  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/password:.*$/password: $password/g" >/dev/null 2>&1
         # 配置端口
         echo -e "${yellow}配置连接redis的端口（当使用关联redis模式启动时，请使用6379端口）${plain}"
         echo -e "${yellow}请输入你之前设置的redis端口(建议使用6379，回车默认6379)：${plain}"
@@ -211,15 +211,15 @@ check_yml(){
             port=6379;
             echo -e "${yellow}未输入端口，使用默认端口6379${plain}"
         fi
-        grep -rnl "port: "  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/port: [^port: 1170].*$/port: $port/g" >/dev/null 2>&1
+        grep -rnl 'port: '  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/port: [^port: 1170].*$/port: $port/g" >/dev/null 2>&1
         # 配置卡密
         echo -e "${yellow}设置授权token: ${plain}"
         read -r -p "请输入您的授权码：" token
-        grep -rnl "token:"  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/token:.*$/token: $token/g" >/dev/null 2>&1
+        grep -rnl 'token:'  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/token:.*$/token: $token/g" >/dev/null 2>&1
         # 授权地址
         #echo -e "${yellow}设置授权网址: ${plain}"
         #read -r -p "请输入您的授权网址：" url
-        #grep -rnl "url:"  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/url:.*$/url: $url/g" >/dev/null 2>&1
+        #grep -rnl 'url:'  ${filePath}/flycloud/application.yml | xargs sed -i -r "s/url:.*$/url: $url/g" >/dev/null 2>&1
     fi
 }
 

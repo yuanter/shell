@@ -104,6 +104,7 @@ start_jd_cookie(){
         echo -e "\n${yellow}更新最新镜像中...${plain}"
         docker pull yuanter/jd_cookie:latest
 
+        # 删除新镜像残留的悬空镜像
         docker images -f "dangling=true" -f "reference=yuanter/jd_cookie" -q | xargs -r docker rmi
 
         #使用模式

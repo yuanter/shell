@@ -104,6 +104,7 @@ check_redis(){
         echo -e "${yellow}检测到还未安装redis镜像，本项目依赖redis数据库，是否安装redis镜像${plain}"
       fi
       echo "   1) 安装redis"
+      echo "   2) 不安装，继续"
       echo "   0) 退出整个脚本安装程序"
       read input
       case $input in
@@ -112,7 +113,8 @@ check_redis(){
                 wget -O redis_install.sh  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/redis_install.sh >/dev/null 2>&1
                 chmod +x *sh
                 bash redis_install.sh
-            ;;
+                ;;
+            2)  echo -e "${yellow}继续往下执行中。。。${plain}";;
       esac
     fi
 }

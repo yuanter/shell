@@ -128,7 +128,8 @@ check_chrome(){
         echo -e "[Error] 下载chrome浏览器失败，请检查网络或重新执行本脚本" && exit 2
       fi
       #解压
-      unzip chrome-${linuxDigit}.zip  >/dev/null 2>&1 && rm -rf chrome-${linuxDigit}.zip
+      unzip chrome-${linuxDigit}.zip  >/dev/null 2>&1
+      mv chrome-linux chrome-${linuxDigit} && rm -rf chrome-${linuxDigit}.zip
       #下载驱动
       wget -O chrome-${linuxDigit}/chromedriver  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/chromedriver
 

@@ -103,7 +103,7 @@ check_chrome(){
     echo -e "${yellow}检测Chrome浏览器中...${plain}\n"
     if [ ! -d "${filePath}/flycloud/chrome" ]; then
       cd ${filePath}
-      mkdir -p flycloud/chrome && cd flycloud/chrome || exit
+      mkdir -p ${filePath}/flycloud/chrome && cd ${filePath}/flycloud/chrome || exit
       echo -e "[INFO] 检测到当前不存在Chrome浏览器，即将下载文件"
       echo -e "${yellow}开始下载文件，下载地址：${chrome_linux}${plain}"
       #下载浏览器

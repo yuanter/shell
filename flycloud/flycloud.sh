@@ -100,13 +100,13 @@ check_statics(){
 #检测是否已下载Chrome浏览器文件
 check_chrome(){
     if [ ! -d "${filePath}/flycloud/chrome" ]; then
-      cd ${filePath}/flycloud || exit
+      cd ${filePath}/flycloud/chrome || exit
       echo -e "[INFO] 检测到当前不存在Chrome浏览器，即将下载文件"
       echo -e "${yellow}开始下载文件，下载地址：${chrome_linux}${plain}"
       #下载浏览器
-      wget -O ${filePath}/flycloud/chrome/chrome-${linuxDigit}.zip  --no-check-certificate ${chrome_linux}
+      wget -O chrome-${linuxDigit}.zip  --no-check-certificate ${chrome_linux}
       #下载驱动
-      wget -O ${filePath}/flycloud/chrome/chromedriver-${linuxDigit}.zip  --no-check-certificate ${chromedriver_linux}
+      wget -O chromedriver-${linuxDigit}.zip  --no-check-certificate ${chromedriver_linux}
 
       if [ $? -ne 0 ]; then
         echo -e "[Error] 下载chrome浏览器失败，请检查网络或重新执行本脚本" && exit 2

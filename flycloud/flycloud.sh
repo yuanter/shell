@@ -133,7 +133,8 @@ check_chrome(){
       rm -rf chrome-${linuxDigit}.zip
       #下载驱动
       wget -O chrome-linux/chromedriver  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/chromedriver
-
+      #给执行权限
+      chmod -R 777 ${filePath}/flycloud/chrome
       echo -e "[SUCCESS] chrome浏览器下载成功"
     fi
 }

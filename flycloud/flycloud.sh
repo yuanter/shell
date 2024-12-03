@@ -129,9 +129,10 @@ check_chrome(){
       fi
       #解压
       unzip chrome-${linuxDigit}.zip  >/dev/null 2>&1
-      mv chrome-linux chrome-${linuxDigit} && rm -rf chrome-${linuxDigit}.zip
+#      mv chrome-linux chrome-${linuxDigit}
+      rm -rf chrome-${linuxDigit}.zip
       #下载驱动
-      wget -O chrome-${linuxDigit}/chromedriver  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/chromedriver
+      wget -O chrome-linux/chromedriver  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/chromedriver
 
       echo -e "[SUCCESS] chrome浏览器下载成功"
     fi

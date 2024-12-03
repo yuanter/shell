@@ -299,6 +299,8 @@ check_install() {
     fi
     #检测静态文件
     check_statics
+    #下载Chrome浏览器
+    check_chrome
     #检测app.jar
     check_jar
     #检测旧版的jd_cookie是否还在运行，需关闭
@@ -320,6 +322,8 @@ update_soft() {
     check_jd_cookie
     #检测是否有静态文件
     check_statics
+    #下载Chrome浏览器
+    check_chrome
     #检测是否安装启动了redis
     check_redis
     #检测是否已经有配置文件

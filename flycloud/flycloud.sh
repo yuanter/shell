@@ -9,6 +9,21 @@ plain='\033[0m'
 path=$PWD
 #当前文件路径
 filePath=$PWD
+#浏览器版本
+chrome_version="131.0.6778.85"
+#linux标识
+linuxDigit="linux64"
+#window标识
+winDigit="win64"
+#linux浏览器地址
+chrome_linux="https://storage.googleapis.com/chrome-for-testing-public/${chrome_version}/${linuxDigit}/chrome-${linuxDigit}.zip"
+#window浏览器地址
+chrome_win="https://storage.googleapis.com/chrome-for-testing-public/${chrome_version}/${winDigit}/chrome-${winDigit}.zip"
+#linux驱动地址地址
+chromedriver_linux="https://storage.googleapis.com/chrome-for-testing-public/${chrome_version}/${linuxDigit}/chromedriver-${linuxDigit}.zip"
+#linux驱动地址地址
+chromedriver_win="https://storage.googleapis.com/chrome-for-testing-public/${chrome_version}/${winDigit}/chromedriver-${winDigit}.zip"
+
 
 
 #代理地址
@@ -69,8 +84,7 @@ check_restart_flycloud(){
 #检测是否已下载静态文件statics
 check_statics(){
     if [ ! -d "${filePath}/flycloud/statics" ]; then
-      cd ${filePath}
-      mkdir -p flycloud && cd flycloud || exit
+      cd ${filePath}/flycloud || exit
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
       echo -e "${yellow}开始下载文件，下载地址：${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz${plain}"
       wget -O ${filePath}/flycloud/statics.tar.gz  --no-check-certificate ${proxyURL}https://raw.githubusercontent.com/yuanter/shell/main/flycloud/statics.tar.gz
@@ -79,7 +93,30 @@ check_statics(){
         echo -e "[Error] 下载静态文件失败，请检查网络或重新执行本脚本" && exit 2
       fi
       tar -zxvf statics.tar.gz  >/dev/null 2>&1 && rm -rf statics.tar.gz
-      echo -e "[SUCCESS] statics下载静态成功"
+      echo -e "[SUCCESS] statics静态文件下载成功"
+    fi
+}
+
+#检测是否已下载chrome浏览器文件
+check_chrome(){
+    if [ ! -d "${filePath}/flycloud/chrome" ]; then
+      cd ${filePath}/flycloud || exit
+      echo -e "[INFO] 检测到当前不存在chrome浏览器，即将下载文件"
+      echo -e "${yellow}开始下载文件，下载地址：${chrome_linux}${plain}"
+      #下载浏览器
+      wget -O ${filePath}/flycloud/chrome-${linuxDigit}.zip  --no-check-certificate ${chrome_linux}
+      #下载驱动
+      wget -O ${filePath}/flycloud/chromedriver-${linuxDigit}.zip  --no-check-certificate ${chromedriver_linux}
+
+      if [ $? -ne 0 ]; then
+        echo -e "[Error] 下载chrome浏览器失败，请检查网络或重新执行本脚本" && exit 2
+      fi
+      #解压
+      unzip chrome-${linuxDigit}.zip  >/dev/null 2>&1 && rm -rf chrome-${linuxDigit}.zip
+      unzip chromedriver-${linuxDigit}.zip  >/dev/null 2>&1 && rm -rf chromedriver-${linuxDigit}.zip
+      #复制驱动到浏览器文件夹
+      cp ${filePath}/flycloud/chrome/chromedriver-${linuxDigit}/chromedriver ${filePath}/flycloud/chrome/chrome-${linuxDigit}
+      echo -e "[SUCCESS] chrome浏览器下载成功"
     fi
 }
 
@@ -255,6 +292,11 @@ update_jar(){
 }
 
 check_install() {
+    #创建flycloud文件夹
+    if [ ! -d "${filePath}/flycloud" ]; then
+        cd ${filePath}
+        mkdir -p flycloud && cd flycloud || exit
+    fi
     #检测静态文件
     check_statics
     #检测app.jar

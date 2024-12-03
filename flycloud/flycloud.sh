@@ -83,6 +83,7 @@ check_restart_flycloud(){
 
 #检测是否已下载静态文件statics
 check_statics(){
+    echo -e "${yellow}检测静态文件夹statics中...${plain}\n"
     if [ ! -d "${filePath}/flycloud/statics" ]; then
       cd ${filePath}/flycloud || exit
       echo -e "[INFO] 检测到当前不存在静态文件夹statics，即将下载文件"
@@ -99,6 +100,7 @@ check_statics(){
 
 #检测是否已下载Chrome浏览器文件
 check_chrome(){
+    echo -e "${yellow}检测Chrome浏览器中...${plain}\n"
     if [ ! -d "${filePath}/flycloud/chrome" ]; then
       cd ${filePath}/flycloud/chrome || exit
       echo -e "[INFO] 检测到当前不存在Chrome浏览器，即将下载文件"
@@ -267,6 +269,7 @@ check_yml(){
 
 #检测是否已经有app.jar文件
 check_jar(){
+    echo -e "${yellow}检测jar文件中...${plain}\n"
     #检测app.jar
     if [ ! -f "${filePath}/flycloud/app.jar" ]; then
        echo -e "[INFO] 检测到当前不存在jar文件，即将下载文件"

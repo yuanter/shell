@@ -122,13 +122,16 @@ check_chrome(){
 #      #复制驱动到浏览器文件夹
 #      cp ${filePath}/flycloud/chrome/chromedriver-${linuxDigit}/chromedriver ${filePath}/flycloud/chrome/chrome-${linuxDigit}
       #下载浏览器
-      chromeurl='https://mirrors.huaweicloud.com/chromium-browser-snapshots/Linux_x64/884014/chrome-linux.zip'
+      #chromeurl='https://mirrors.huaweicloud.com/chromium-browser-snapshots/Linux_x64/884014/chrome-linux.zip'
+      chromeurl='https://chromedriver.storage.googleapis.com/95.0.4638.69/chromedriver_linux64.zip'
       wget -O chrome-${linuxDigit}.zip  --no-check-certificate ${chromeurl}
       if [ $? -ne 0 ]; then
         echo -e "[Error] 下载chrome浏览器失败，请检查网络或重新执行本脚本" && exit 2
       fi
       #解压
       unzip chrome-${linuxDigit}.zip  >/dev/null 2>&1
+      #权限
+      chmod +x chromedriver
 #      mv chrome-linux chrome-${linuxDigit}
       rm -rf chrome-${linuxDigit}.zip
       #下载驱动

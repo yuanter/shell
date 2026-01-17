@@ -29,9 +29,9 @@ ARG TARGETARCH
 #ADD application.yml application.yml
 #ADD FlyCloud-1.0.jar app.jar
 #ADD /statics /statics
-ADD arm/openjdk-8 /arm/openjdk-8
-ADD start.sh start.sh
-ADD docker-entrypoint.sh docker-entrypoint.sh
+ADD ./flycloud/docker/arm/openjdk-8 /arm/openjdk-8
+ADD ./flycloud/docker/start.sh start.sh
+ADD ./flycloud/docker/docker-entrypoint.sh docker-entrypoint.sh
 
 
 #运行目录

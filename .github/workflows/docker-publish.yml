@@ -4,6 +4,8 @@ on:
   push:
     branches: [ "main" ]  # 当推送到 main 分支时触发
     # tags: [ 'v*.*.*' ]  # (可选) 当推送标签时触发
+    paths:
+      - ./flycloud/docker/Dockerfile
 
 jobs:
   build:

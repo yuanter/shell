@@ -5,7 +5,9 @@ on:
     branches: [ "main" ]  # 当推送到 main 分支时触发
     # tags: [ 'v*.*.*' ]  # (可选) 当推送标签时触发
     paths:
-      - ./flycloud/docker/Dockerfile
+      - 'Dockerfile'           # Docker 配置变了，要构建
+      - '.github/workflows/**' # 构建流程变了，要构建
+      - './flycloud/docker/**' # dockerfile文件夹下有文件变了
 
 jobs:
   build:

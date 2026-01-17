@@ -1,0 +1,52 @@
+name: Build and Push Multi-Platform Docker Image
+
+on:
+  push:
+    branches: [ "main" ]  # 当推送到 main 分支时触发
+    # tags: [ 'v*.*.*' ]  # (可选) 当推送标签时触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. 设置 QEMU (关键步骤：用于跨平台模拟)
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # 3. 设置 Docker Buildx (关键步骤：用于多架构构建)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 4. 登录 Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5. 生成元数据 (可选但推荐：自动生成 tag 和 label)
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: yuanter/flycloud # 替换为你的镜像名
+
+      # 6. 构建并推送
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./flycloud/docker/Dockerfile
+          push: true
+          # 在这里指定你需要的目标平台
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # 启用缓存以加快构建速度 (可选)
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

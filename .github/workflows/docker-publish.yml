@@ -7,7 +7,7 @@ on:
     paths:
       - 'Dockerfile'           # Docker 配置变了，要构建
       - '.github/workflows/**' # 构建流程变了，要构建
-      - './flycloud/docker/**' # dockerfile文件夹下有文件变了
+      - 'flycloud/docker/**' # dockerfile文件夹下有文件变了
 
 jobs:
   build:

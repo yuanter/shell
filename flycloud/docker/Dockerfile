@@ -29,7 +29,6 @@ RUN mkdir -p ${DIR_ROOT} \
 RUN echo '------------------------------------开始安装环境------------------------------------'
 RUN apk update \
 	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk8 \
-    wqy-zenhei \
     font-noto \
     libstdc++ \
     ca-certificates \

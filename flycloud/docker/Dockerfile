@@ -28,7 +28,34 @@ RUN mkdir -p ${DIR_ROOT} \
 # 安装环境
 RUN echo '------------------------------------开始安装环境------------------------------------'
 RUN apk update \
-	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk8
+	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk8 \
+    wqy-zenhei \
+    font-noto \
+    libstdc++ \
+    ca-certificates \
+    glib \
+    nss \
+    alsa-lib \
+    gtk+3.0 \
+    atk \
+    pango \
+    cairo \
+    fontconfig \
+    freetype \
+    harfbuzz \
+    libxcb \
+    libx11 \
+    xvfb \
+    mesa-gl \
+    chromium \
+    chromium-chromedriver \
+    ttf-freefont
+
+    # 设置 DISPLAY 环境变量
+    ENV CHROMIUM_BIN=/usr/bin/chromium-browser
+    ENV DISPLAY=:99
+    # 添加并启动虚拟显示
+    RUN Xvfb :99 -screen 0 1920x1080x24 &
 	
 RUN echo '------------------------------------脚本安装完毕，开始打包中------------------------------------'	
 

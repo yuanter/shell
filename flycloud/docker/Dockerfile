@@ -46,8 +46,6 @@ RUN apk update \
     libx11 \
     xvfb \
     mesa-gl \
-    chromium \
-    chromium-chromedriver \
     ttf-freefont
 
     # 设置 DISPLAY 环境变量

@@ -32,14 +32,7 @@ RUN apk update \
 	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk11 \
     chromium \
     chromium-chromedriver \
-    # 以下库在 Alpine 3.19+ 的 Chromium 依赖中通常会自动安装,但为了保险保留部分 \
-    mesa-gl \
-    xvfb \
-    wait4ports \
-    xorg-server \
-    dbus \
-    ttf-freefont \
-    mesa-egl
+    xvfb
 
 # 新增
 # 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)

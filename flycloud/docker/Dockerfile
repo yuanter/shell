@@ -1,5 +1,5 @@
 ﻿#FROM node:16.16.0-alpine3.16
-FROM node:18-alpine3.21
+FROM node:18-alpine3.20
 ENV SHELL /bin/bash
 MAINTAINER yuanter
 
@@ -28,21 +28,21 @@ RUN mkdir -p ${DIR_ROOT} \
 
 # 安装环境
 RUN echo '------------------------------------开始安装环境------------------------------------'
-# 替换为国内源 (注意：这里严格指定了 v3.21 版本，而不是 edge)
-RUN echo "https://mirrors.aliyun.com/alpine/v3.21/main" > /etc/apk/repositories && \
-    echo "https://mirrors.aliyun.com/alpine/v3.21/community" >> /etc/apk/repositories
 RUN apk update \
 	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk11 \
     chromium \
-    chromium-chromedriver \
-    # 以下库在 Alpine 3.19+ 的 Chromium 依赖中通常会自动安装,但为了保险保留部分 \
+    chromium-chromedriver\
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
     mesa-gl \
     xvfb \
+    libstdc++ \
     wait4ports \
     xorg-server \
-    dbus \
-    ttf-freefont \
-    mesa-egl
+    dbus
 
 # 新增
 # 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)
@@ -51,8 +51,9 @@ ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # 设置 DISPLAY 环境变量
 ENV CHROMIUM_BIN=/usr/bin/chromium-browser
+ENV CHROME_DRIVER=/usr/bin/chromedriver
 ENV DISPLAY=:99
-# 注意：Xvfb 的启动参数稍微调整以适应新版
+# 启动虚拟显示 (增加 -ac 参数取消访问控制，更稳定)
 RUN Xvfb :99 -ac -screen 0 1920x1080x24 &
 	
 RUN echo '------------------------------------脚本安装完毕，开始打包中------------------------------------'	

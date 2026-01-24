@@ -27,42 +27,15 @@ RUN mkdir -p ${DIR_ROOT} \
 	&& chmod 777 /start.sh
 
 # 安装环境
-# 1. 增加软件源配置（确保能下载到包）
-# 2. 使用 openjdk11
-# 3. Alpine 3.19 的 chromium 版本更新，兼容性更好
 RUN echo '------------------------------------开始安装环境------------------------------------'
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk update \
-	&& apk add --no-cac he curl wget bash tzdata unzip tar \
-    openjdk11 \
-    font-noto \
-    libstdc++ \
-    ca-certificates \
-    nss \
-    freetype \
-    harfbuzz \
-    ttf-freefont \
-    chromium \
-    chromium-chromedriver \
-    # 以下库在 Alpine 3.19+ 的 Chromium 依赖中通常会自动安装,但为了保险保留部分 \
-    mesa-gl \
-    xvfb \
-    wait4ports \
-    xorg-server \
-    dbus \
-    ttf-freefont \
-    mesa-egl
+RUN apk update \
+	&& apk add --no-cache openjdk11
 
 # 新增
 # 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
-# 设置 DISPLAY 环境变量
-ENV CHROMIUM_BIN=/usr/bin/chromium-browser
-ENV DISPLAY=:99
-# 注意：Xvfb 的启动参数稍微调整以适应新版
-RUN Xvfb :99 -ac -screen 0 1920x1080x24 &
 	
 RUN echo '------------------------------------脚本安装完毕，开始打包中------------------------------------'	
 

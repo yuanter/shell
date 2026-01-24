@@ -28,6 +28,9 @@ RUN mkdir -p ${DIR_ROOT} \
 
 # 安装环境
 RUN echo '------------------------------------开始安装环境------------------------------------'
+# 替换为国内源 (注意：这里严格指定了 v3.21 版本，而不是 edge)
+RUN echo "https://mirrors.aliyun.com/alpine/v3.21/main" > /etc/apk/repositories && \
+    echo "https://mirrors.aliyun.com/alpine/v3.21/community" >> /etc/apk/repositories
 RUN apk update \
 	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk11 \
     chromium \

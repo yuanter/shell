@@ -1,4 +1,5 @@
-﻿FROM  node:16.16.0-alpine3.16
+﻿#FROM node:16.16.0-alpine3.16
+FROM node:18-alpine3.19
 ENV SHELL /bin/bash
 MAINTAINER yuanter
 
@@ -28,7 +29,7 @@ RUN mkdir -p ${DIR_ROOT} \
 # 安装环境
 RUN echo '------------------------------------开始安装环境------------------------------------'
 RUN apk update \
-	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk8 \
+	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk11 \
     font-noto \
     libstdc++ \
     ca-certificates \
@@ -50,8 +51,16 @@ RUN apk update \
     chromium-chromedriver \
     ttf-freefont
 
+# 新增
+# 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
 # 设置 DISPLAY 环境变量
 ENV CHROMIUM_BIN=/usr/bin/chromium-browser
+ENV DISPLAY=:99
+# 添加并启动虚拟显示
+RUN Xvfb :99 -screen 0 1920x1080x24 &
 	
 RUN echo '------------------------------------脚本安装完毕，开始打包中------------------------------------'	
 

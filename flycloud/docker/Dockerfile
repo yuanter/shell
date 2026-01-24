@@ -1,5 +1,5 @@
 ﻿#FROM node:16.16.0-alpine3.16
-FROM node:18-alpine3.20
+FROM node:18-alpine3.21
 ENV SHELL /bin/bash
 MAINTAINER yuanter
 
@@ -32,7 +32,14 @@ RUN apk update \
 	&& apk add --no-cache curl wget bash tzdata unzip tar openjdk11 \
     chromium \
     chromium-chromedriver \
-    xvfb
+    # 以下库在 Alpine 3.19+ 的 Chromium 依赖中通常会自动安装,但为了保险保留部分 \
+    mesa-gl \
+    xvfb \
+    wait4ports \
+    xorg-server \
+    dbus \
+    ttf-freefont \
+    mesa-egl
 
 # 新增
 # 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)

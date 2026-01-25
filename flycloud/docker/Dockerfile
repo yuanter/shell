@@ -7,7 +7,11 @@ MAINTAINER yuanter
 RUN set -eux
 
 # Default to UTF-8 file.encoding
-ENV LANG en_US.UTF-8
+#ENV LANG en_US.UTF-8
+# 设置语言环境
+ENV LANG=zh_CN.UTF-8 \
+    LANGUAGE=zh_CN:zh \
+    LC_ALL=zh_CN.UTF-8
 
 #架构
 ARG TARGETARCH
@@ -42,7 +46,13 @@ RUN apk update \
     libstdc++ \
     wait4ports \
     xorg-server \
-    dbus
+    dbus \
+    # --- 新增字体 --- \
+    font-noto-cjk \
+    font-noto-emoji \
+    && \
+    # 清理缓存减小体积
+    rm -rf /var/cache/apk/*
 
 # 新增
 # 设置 JAVA_HOME (可选，为了确保程序能找到 Java 11)

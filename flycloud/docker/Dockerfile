@@ -51,7 +51,7 @@ RUN apk update \
     font-noto-cjk \
     font-noto-emoji \
     && \
-    #清理缓存减小体积 \
+    # 清理缓存减小体积
     rm -rf /var/cache/apk/*
 
 # 新增

@@ -27,8 +27,9 @@ chromedriver_win="https://storage.googleapis.com/chrome-for-testing-public/${chr
 
 
 #代理地址
-proxyURL='http://ghb.mkjt.xyz:1888/'
-proxyURL2='http://git.566646.xyz:12333/'
+proxyURL='http://git.566646.xyz:12333/'
+proxyURL2='http://ghb.mkjt.xyz:1888/'
+
 # 是否使用自定义加速镜像
 echo -e "\n   ${yellow}是否使用自定义加速镜像用于全局加速？(已内置加速镜像)${plain}"
 echo "   1) 国内主机，需要使用"
